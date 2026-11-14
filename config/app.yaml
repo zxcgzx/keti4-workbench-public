@@ -1,0 +1,33 @@
+{
+  "thresholds": {
+    "heavy": 0.8,
+    "overload": 1
+  },
+  "ranges": {
+    "scale": {
+      "min": 0,
+      "max": 3,
+      "min_exclusive": true
+    },
+    "voltage": {
+      "min": 0.8,
+      "max": 1.2
+    },
+    "status": [
+      0,
+      1
+    ]
+  },
+  "default_beta": 1,
+  "contingency_rule": "meshed_in_service",
+  "switchable_rule": "meshed_in_service",
+  "periods": 16,
+  "step_min": 15,
+  "base_objective": "deviation_from_snapshot_pg",
+  "trial_build": {
+    "periods": 1,
+    "include_n_minus_1": false,
+    "timeout_s": 60
+  },
+  "description": "阈值为可配置演示规则。目标缺少真实发电成本；当前方式偏离目标待确认。"
+}

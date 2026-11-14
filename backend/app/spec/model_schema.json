@@ -1,0 +1,422 @@
+{
+  "$defs": {
+    "BaseModelDef": {
+      "additionalProperties": false,
+      "properties": {
+        "system": {
+          "default": "dali_905",
+          "title": "System",
+          "type": "string"
+        },
+        "problem": {
+          "default": "multi_period_ac_ots",
+          "enum": [
+            "multi_period_ac_ots",
+            "multi_period_acopf"
+          ],
+          "title": "Problem",
+          "type": "string"
+        },
+        "periods": {
+          "default": 16,
+          "title": "Periods",
+          "type": "integer"
+        },
+        "step_min": {
+          "default": 15,
+          "title": "Step Min",
+          "type": "integer"
+        },
+        "n_minus_1": {
+          "default": true,
+          "title": "N Minus 1",
+          "type": "boolean"
+        },
+        "contingency_rule": {
+          "default": "meshed_in_service",
+          "enum": [
+            "all_in_service",
+            "meshed_in_service",
+            "meshed_kv_ge_110"
+          ],
+          "title": "Contingency Rule",
+          "type": "string"
+        },
+        "switchable_rule": {
+          "default": "meshed_in_service",
+          "enum": [
+            "all_in_service",
+            "meshed_in_service",
+            "meshed_kv_ge_110"
+          ],
+          "title": "Switchable Rule",
+          "type": "string"
+        }
+      },
+      "title": "BaseModelDef",
+      "type": "object"
+    },
+    "DeltaPi": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "component": {
+          "enum": [
+            "bus",
+            "gen",
+            "branch"
+          ],
+          "title": "Component",
+          "type": "string"
+        },
+        "target": {
+          "title": "Target",
+          "type": "string"
+        },
+        "param": {
+          "title": "Param",
+          "type": "string"
+        },
+        "operation": {
+          "anyOf": [
+            {
+              "enum": [
+                "scale",
+                "set",
+                "add"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Operation"
+        },
+        "direction": {
+          "anyOf": [
+            {
+              "enum": [
+                "increase",
+                "decrease",
+                "set_zero"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Direction"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "periods": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Periods",
+          "type": "array"
+        },
+        "source": {
+          "default": "explicit",
+          "enum": [
+            "explicit",
+            "inferred"
+          ],
+          "title": "Source",
+          "type": "string"
+        },
+        "evidence": {
+          "title": "Evidence",
+          "type": "string"
+        },
+        "inference_chain": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Inference Chain"
+        },
+        "confirmed": {
+          "default": false,
+          "title": "Confirmed",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "target",
+        "param",
+        "evidence"
+      ],
+      "title": "DeltaPi",
+      "type": "object"
+    },
+    "LevelOverride": {
+      "additionalProperties": false,
+      "properties": {
+        "level": {
+          "enum": [
+            "L1",
+            "L2",
+            "L3",
+            "L4"
+          ],
+          "title": "Level",
+          "type": "string"
+        },
+        "reason": {
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "level",
+        "reason"
+      ],
+      "title": "LevelOverride",
+      "type": "object"
+    },
+    "SnapshotRef": {
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "default": "pasExp_20261004_153500_1",
+          "title": "Id",
+          "type": "string"
+        },
+        "files": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Files",
+          "type": "array"
+        },
+        "start": {
+          "default": "2026-10-04T15:35:00",
+          "title": "Start",
+          "type": "string"
+        },
+        "periods": {
+          "default": 16,
+          "title": "Periods",
+          "type": "integer"
+        },
+        "step_min": {
+          "default": 15,
+          "title": "Step Min",
+          "type": "integer"
+        },
+        "single_snapshot": {
+          "default": true,
+          "title": "Single Snapshot",
+          "type": "boolean"
+        }
+      },
+      "title": "SnapshotRef",
+      "type": "object"
+    },
+    "SolverReq": {
+      "additionalProperties": false,
+      "properties": {
+        "solver": {
+          "default": "mock",
+          "enum": [
+            "mock",
+            "ipopt",
+            "copt",
+            "gurobi",
+            "external"
+          ],
+          "title": "Solver",
+          "type": "string"
+        },
+        "time_limit_s": {
+          "default": 60,
+          "title": "Time Limit S",
+          "type": "integer"
+        },
+        "tolerance": {
+          "default": 1e-06,
+          "title": "Tolerance",
+          "type": "number"
+        },
+        "outputs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Outputs",
+          "type": "array"
+        }
+      },
+      "title": "SolverReq",
+      "type": "object"
+    },
+    "StructuralOp": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "problem",
+            "constraint",
+            "objective"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "op_id": {
+          "title": "Op Id",
+          "type": "string"
+        },
+        "params": {
+          "additionalProperties": true,
+          "title": "Params",
+          "type": "object"
+        },
+        "source": {
+          "default": "explicit",
+          "enum": [
+            "explicit",
+            "inferred"
+          ],
+          "title": "Source",
+          "type": "string"
+        },
+        "evidence": {
+          "title": "Evidence",
+          "type": "string"
+        },
+        "custom_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Custom Code"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "op_id",
+        "evidence"
+      ],
+      "title": "StructuralOp",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "task_id": {
+      "title": "Task Id",
+      "type": "string"
+    },
+    "version": {
+      "default": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "parent_version": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Parent Version"
+    },
+    "change_reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Change Reason"
+    },
+    "instruction": {
+      "title": "Instruction",
+      "type": "string"
+    },
+    "snapshot": {
+      "$ref": "#/$defs/SnapshotRef"
+    },
+    "omega": {
+      "$ref": "#/$defs/BaseModelDef"
+    },
+    "delta_pi": {
+      "items": {
+        "$ref": "#/$defs/DeltaPi"
+      },
+      "title": "Delta Pi",
+      "type": "array"
+    },
+    "structural": {
+      "items": {
+        "$ref": "#/$defs/StructuralOp"
+      },
+      "title": "Structural",
+      "type": "array"
+    },
+    "solver_req": {
+      "$ref": "#/$defs/SolverReq"
+    },
+    "level_override": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LevelOverride"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "task_id",
+    "instruction"
+  ],
+  "title": "ModelSpec",
+  "type": "object"
+}

@@ -1,0 +1,13 @@
+node_modules/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+.env.*
+runs/
+data/cache/
+backend/app/static/
+*.sqlite*
+*.db
+*.log
+*.zip

@@ -1,0 +1,6 @@
+export async function api(path:string,options:RequestInit={}) {const headers:any={...(options.body instanceof FormData?{}:{'Content-Type':'application/json'}),...options.headers};const response=await fetch('/api'+path,{...options,headers});if(!response.ok){let e:any;try{e=await response.json()}catch{e={detail:response.statusText}}throw new Error(typeof e.detail==='string'?e.detail:JSON.stringify(e.detail??e));}if(response.status===204)return null;return response.json();}
+export const post=(path:string,body:any={})=>api(path,{method:'POST',body:JSON.stringify(body)});
+export const put=(path:string,body:any)=>api(path,{method:'PUT',body:JSON.stringify(body)});
+export function downloadText(name:string,text:string,type='text/plain;charset=utf-8'){const u=URL.createObjectURL(new Blob([text],{type}));const a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
+export function fmt(value:any,digits=2){return value===null||value===undefined||!Number.isFinite(Number(value))?'—':Number(value).toLocaleString('zh-CN',{maximumFractionDigits:digits});}
+export function percent(value:any,digits=1){return value===null||value===undefined?'—':fmt(Number(value)*100,digits)+'%';}

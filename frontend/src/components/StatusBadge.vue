@@ -1,0 +1,3 @@
+<script setup lang="ts">
+import {computed} from 'vue';import {useWorkbench} from '../stores/workbench';import {STATUS_LABELS,findFeature} from '../features';const props=defineProps<{feature?:string;name?:string}>();const s=useWorkbench();const item=computed(()=>findFeature(s.features,props.feature,props.name));
+</script><template><span class="status-badge" :class="item?.status" :title="item?.description">{{item?STATUS_LABELS[item.status]:'状态未加载'}}</span></template>

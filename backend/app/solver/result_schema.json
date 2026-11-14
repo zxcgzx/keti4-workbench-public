@@ -1,0 +1,139 @@
+{
+  "$defs": {
+    "FlowSeries": {
+      "additionalProperties": false,
+      "properties": {
+        "pf": {
+          "items": {
+            "type": "number"
+          },
+          "title": "Pf",
+          "type": "array"
+        },
+        "qf": {
+          "items": {
+            "type": "number"
+          },
+          "title": "Qf",
+          "type": "array"
+        },
+        "pt": {
+          "items": {
+            "type": "number"
+          },
+          "title": "Pt",
+          "type": "array"
+        },
+        "qt": {
+          "items": {
+            "type": "number"
+          },
+          "title": "Qt",
+          "type": "array"
+        }
+      },
+      "required": [
+        "pf",
+        "qf",
+        "pt",
+        "qt"
+      ],
+      "title": "FlowSeries",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "status": {
+      "enum": [
+        "optimal",
+        "feasible",
+        "infeasible",
+        "error",
+        "mock"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "solver": {
+      "default": "external",
+      "title": "Solver",
+      "type": "string"
+    },
+    "objective": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Objective"
+    },
+    "periods": {
+      "default": 16,
+      "maximum": 16,
+      "minimum": 1,
+      "title": "Periods",
+      "type": "integer"
+    },
+    "timings_s": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Timings S",
+      "type": "object"
+    },
+    "branch_status": {
+      "additionalProperties": {
+        "items": {
+          "type": "integer"
+        },
+        "type": "array"
+      },
+      "title": "Branch Status",
+      "type": "object"
+    },
+    "gen_p": {
+      "additionalProperties": {
+        "items": {
+          "type": "number"
+        },
+        "type": "array"
+      },
+      "title": "Gen P",
+      "type": "object"
+    },
+    "bus_vm": {
+      "additionalProperties": {
+        "items": {
+          "type": "number"
+        },
+        "type": "array"
+      },
+      "title": "Bus Vm",
+      "type": "object"
+    },
+    "branch_flow": {
+      "additionalProperties": {
+        "$ref": "#/$defs/FlowSeries"
+      },
+      "title": "Branch Flow",
+      "type": "object"
+    },
+    "messages": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Messages",
+      "type": "array"
+    }
+  },
+  "required": [
+    "status"
+  ],
+  "title": "ResultModel",
+  "type": "object"
+}

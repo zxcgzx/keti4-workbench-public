@@ -1,0 +1,333 @@
+{
+  "items": [
+    {
+      "id": "M6.history_905",
+      "module": "M6",
+      "name": "905历史计算回放",
+      "status": "implemented",
+      "description": "原MAT/CSV的16时段同工况基准与方案对比，独立来源、真实故障分母与只读API；不重新求解"
+    },
+    {
+      "id": "M1.text",
+      "module": "M1",
+      "name": "文本指令输入",
+      "status": "implemented",
+      "description": "原文、断面和引擎绑定任务并持久保存"
+    },
+    {
+      "id": "M1.templates",
+      "module": "M1",
+      "name": "场景模板与 D1–D10",
+      "status": "implemented",
+      "description": "模板可编辑并按实际提交文本解析"
+    },
+    {
+      "id": "M1.snapshots",
+      "module": "M1",
+      "name": "断面选择与数据概况",
+      "status": "implemented",
+      "description": "文件内时间优先；单断面复制明确标注"
+    },
+    {
+      "id": "M1.voice",
+      "module": "M1",
+      "name": "语音交互",
+      "status": "planned",
+      "description": "待接语音识别能力"
+    },
+    {
+      "id": "M2.entities",
+      "module": "M2",
+      "name": "实体解析与原文高亮",
+      "status": "implemented",
+      "description": "B/L/G稳定编号和原文片段"
+    },
+    {
+      "id": "M2.level",
+      "module": "M2",
+      "name": "L1–L4 判级",
+      "status": "implemented",
+      "description": "从规格计算；人工显示改选留痕"
+    },
+    {
+      "id": "M2.inference",
+      "module": "M2",
+      "name": "推断链与追问",
+      "status": "implemented",
+      "description": "幅度不猜测，确认后才生成"
+    },
+    {
+      "id": "M3.problem",
+      "module": "M3",
+      "name": "动态模型类型切换",
+      "status": "implemented",
+      "description": "自动识别或选择AC-OPF/AC-OTS，规格、方程、代码与变量规模保持一致"
+    },
+    {
+      "id": "M3.spec",
+      "module": "M3",
+      "name": "规格编辑与方程确认",
+      "status": "implemented",
+      "description": "统一规格 M={ω,Δπ,s,R}"
+    },
+    {
+      "id": "M3.formula",
+      "module": "M3",
+      "name": "公式渲染与改动高亮",
+      "status": "implemented",
+      "description": "N−1属于ω，不重复放入结构修改"
+    },
+    {
+      "id": "M3.code",
+      "module": "M3",
+      "name": "模板代码与双向定位",
+      "status": "implemented",
+      "description": "只读Pyomo代码，按规格条目标记"
+    },
+    {
+      "id": "M3.size",
+      "module": "M3",
+      "name": "模型规模估算",
+      "status": "implemented",
+      "description": "并列三种可开断集合口径；B9单独说明"
+    },
+    {
+      "id": "M3.build",
+      "module": "M3",
+      "name": "T=1 试构建",
+      "status": "implemented",
+      "description": "可选Pyomo，仅构建不求解，跳过B9"
+    },
+    {
+      "id": "M3.versions",
+      "module": "M3",
+      "name": "规格版本与差异",
+      "status": "implemented",
+      "description": "SQLite及任务目录保存版本链"
+    },
+    {
+      "id": "M4.checks",
+      "module": "M4",
+      "name": "五层校验与去幻觉",
+      "status": "implemented",
+      "description": "合法、结构、数据、代码、语义覆盖"
+    },
+    {
+      "id": "M4.external",
+      "module": "M4",
+      "name": "铮昊方法",
+      "status": "reserved",
+      "description": "METHOD_ENDPOINT 未配置时不可选"
+    },
+    {
+      "id": "M4.iis",
+      "module": "M4",
+      "name": "冲突定位 IIS",
+      "status": "planned",
+      "description": "需要真实求解器不可行证据"
+    },
+    {
+      "id": "M5.solver",
+      "module": "M5",
+      "name": "求解黑盒",
+      "status": "blackbox",
+      "description": "mock/import/external；不实现实际优化"
+    },
+    {
+      "id": "M5.external",
+      "module": "M5",
+      "name": "外部求解器适配",
+      "status": "reserved",
+      "description": "SOLVER_CMD配套结果格式与超时"
+    },
+    {
+      "id": "M5.import",
+      "module": "M5",
+      "name": "结果 JSON 导入",
+      "status": "implemented",
+      "description": "核对对象、时段、数组、数值与状态"
+    },
+    {
+      "id": "M6.matrix",
+      "module": "M6",
+      "name": "开断矩阵与出力曲线",
+      "status": "implemented",
+      "description": "导入/外部结果与真实基态分开"
+    },
+    {
+      "id": "M6.topology",
+      "module": "M6",
+      "name": "拓扑网架图",
+      "status": "implemented",
+      "description": "905节点，固定坐标，电压分层与网状筛选"
+    },
+    {
+      "id": "M6.compare",
+      "module": "M6",
+      "name": "调整前后方案对比",
+      "status": "implemented",
+      "description": "只列可比差异；不补造缺失结果"
+    },
+    {
+      "id": "M6.map",
+      "module": "M6",
+      "name": "大理真实地理底图",
+      "status": "implemented",
+      "description": "大理州12县市真实行政边界，离线可用；与电气拓扑分开展示"
+    },
+    {
+      "id": "M6.geolocation",
+      "module": "M6",
+      "name": "电网设备地理定位",
+      "status": "reserved",
+      "description": "等待真实站点经纬度与测点节点映射，不把拓扑坐标作为地理坐标"
+    },
+    {
+      "id": "M6.writeback",
+      "module": "M6",
+      "name": "结果回写测点",
+      "status": "reserved",
+      "description": "待课题2测点和设备动作映射"
+    },
+    {
+      "id": "M7.metrics",
+      "module": "M7",
+      "name": "负载率与电压偏移",
+      "status": "implemented",
+      "description": "以真实断面/导入结果计算"
+    },
+    {
+      "id": "M7.n1",
+      "module": "M7",
+      "name": "N−1 直流筛查",
+      "status": "implemented",
+      "description": "PTDF/LODF；非交流N−1校核，孤岛事故单列"
+    },
+    {
+      "id": "M7.voltage_margin",
+      "module": "M7",
+      "name": "静态电压稳定裕度",
+      "status": "planned",
+      "description": "需要连续潮流"
+    },
+    {
+      "id": "M7.renewables",
+      "module": "M7",
+      "name": "新能源消纳率",
+      "status": "planned",
+      "description": "当前RENEWABLE均为0，暂不计算"
+    },
+    {
+      "id": "M7.risk",
+      "module": "M7",
+      "name": "课题3风险评估",
+      "status": "reserved",
+      "description": "本地规则模拟；RISK_ENDPOINT可接入"
+    },
+    {
+      "id": "M7.pre_risk",
+      "module": "M7",
+      "name": "求解前基态风险协商",
+      "status": "implemented",
+      "description": "确认及校验后直接评估真实基态并生成协商草稿，无需先调用求解黑盒"
+    },
+    {
+      "id": "M7.adjust",
+      "module": "M7",
+      "name": "协商式调整",
+      "status": "implemented",
+      "description": "建议数值留空，生成新版本草稿再确认"
+    },
+    {
+      "id": "M7.reward",
+      "module": "M7",
+      "name": "Reward 与强化学习",
+      "status": "reserved",
+      "description": "仅接口说明与占位"
+    },
+    {
+      "id": "M8.benchmark",
+      "module": "M8",
+      "name": "规格级批量测评",
+      "status": "implemented",
+      "description": "JSON/CSV，分层报告与回放"
+    },
+    {
+      "id": "M8.export",
+      "module": "M8",
+      "name": "测评报告导出",
+      "status": "implemented",
+      "description": "Markdown/CSV"
+    },
+    {
+      "id": "M8.objective",
+      "module": "M8",
+      "name": "求解目标值比对",
+      "status": "planned",
+      "description": "等待真实求解接入"
+    },
+    {
+      "id": "M9.decomposition",
+      "module": "M9",
+      "name": "问题识别与分解（任务2）",
+      "status": "planned",
+      "description": "问题类型、分解策略、子问题网络"
+    },
+    {
+      "id": "M9.agents",
+      "module": "M9",
+      "name": "多智能体协同（任务4）",
+      "status": "planned",
+      "description": "子问题智能体、边端协同、全局收敛"
+    },
+    {
+      "id": "M9.knowledge",
+      "module": "M9",
+      "name": "调度规程知识库",
+      "status": "planned",
+      "description": "当前仅配置化演示知识表"
+    },
+    {
+      "id": "data.measurements",
+      "module": "接口",
+      "name": "课题2测点数据",
+      "status": "reserved",
+      "description": "XLSX/CSV可预览，转换待开发"
+    },
+    {
+      "id": "data.mapping",
+      "module": "接口",
+      "name": "测点到节点转换",
+      "status": "planned",
+      "description": "需单位字典、设备标识与映射规则"
+    },
+    {
+      "id": "model.topic2",
+      "module": "接口",
+      "name": "课题2大模型",
+      "status": "reserved",
+      "description": "接口格式预留"
+    },
+    {
+      "id": "model.proopf",
+      "module": "接口",
+      "name": "ProOPF 微调模型",
+      "status": "reserved",
+      "description": "待配置并验证模型接口"
+    },
+    {
+      "id": "model.qwen",
+      "module": "接口",
+      "name": "本地 Qwen 兼容接口",
+      "status": "implemented",
+      "description": "失败明确回落演示引擎；需自行配置模型服务"
+    },
+    {
+      "id": "platform.embed",
+      "module": "接口",
+      "name": "宿主平台嵌入",
+      "status": "reserved",
+      "description": "/embed/workbench可展示，宿主鉴权与集成待对接"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: keti4-workbench-public
+    runtime: docker
+    plan: free
+    region: singapore
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: PUBLIC_DEMO
+        value: "1"
+      - key: SNAPSHOT_DIR
+        value: data/public-demo
+      - key: WORKBENCH_RUNS_DIR
+        value: /tmp/workbench-runs

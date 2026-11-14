@@ -1,0 +1,126 @@
+{
+  "base": [
+    {
+      "id": "B0",
+      "name": "基础目标（待确认）",
+      "latex": "\\min\\sum_{t\\in\\mathcal T}\\sum_{g\\in\\mathcal G}(P^G_{g,t}-P^{G,0}_g)^2"
+    },
+    {
+      "id": "B1",
+      "name": "有功平衡",
+      "latex": "\\sum_{g\\in\\mathcal G_i}P^G_{g,t}-P^D_{i,t}-G_i^sV_{i,t}^2=\\sum_{l\\in\\mathcal L_i^f}P^f_{l,t}+\\sum_{l\\in\\mathcal L_i^r}P^r_{l,t}"
+    },
+    {
+      "id": "B2",
+      "name": "无功平衡",
+      "latex": "\\sum_{g\\in\\mathcal G_i}Q^G_{g,t}-Q^D_{i,t}+B_i^sV_{i,t}^2=\\sum_{l\\in\\mathcal L_i^f}Q^f_{l,t}+\\sum_{l\\in\\mathcal L_i^r}Q^r_{l,t}"
+    },
+    {
+      "id": "B3",
+      "name": "π 型支路潮流与开断",
+      "latex": "|P^f_{l,t}-p_l^f(V,\\theta)|\\le M_l(1-z_{l,t}),\\quad |P^f_{l,t}|\\le M_lz_{l,t}\\quad(Q^f,P^r,Q^r\\text{ 同理})"
+    },
+    {
+      "id": "B4",
+      "name": "首末端热稳",
+      "latex": "(P^f_{l,t})^2+(Q^f_{l,t})^2\\le z_{l,t}\\bar S_l^2,\\quad(P^r_{l,t})^2+(Q^r_{l,t})^2\\le z_{l,t}\\bar S_l^2"
+    },
+    {
+      "id": "B5",
+      "name": "电压上下限",
+      "latex": "\\underline V_i\\le V_{i,t}\\le\\overline V_i"
+    },
+    {
+      "id": "B6",
+      "name": "机组有功与无功上下限",
+      "latex": "u_g\\underline P_g\\le P^G_{g,t}\\le u_g\\overline P_g,\\quad u_g\\underline Q_g\\le Q^G_{g,t}\\le u_g\\overline Q_g"
+    },
+    {
+      "id": "B7",
+      "name": "不可开断支路固定",
+      "latex": "z_{l,t}=z_l^0,\\quad l\\in\\mathcal L\\setminus\\mathcal L^s"
+    },
+    {
+      "id": "B8",
+      "name": "平衡母线角度",
+      "latex": "\\theta_{175,t}=0"
+    },
+    {
+      "id": "B9",
+      "name": "事故状态（外部链展开）",
+      "latex": "\\forall c\\in\\mathcal C,\\ t\\in\\mathcal T:\\quad x_t^{(c)}\\in\\mathcal F(z_t-e_c)"
+    }
+  ],
+  "operators": [
+    {
+      "op_id": "multi_period_acopf",
+      "kind": "problem",
+      "name": "固定拓扑",
+      "parameters": [],
+      "latex": "z_{l,t}=z_l^0\\quad\\text{无二进制开断变量}",
+      "code_template": "apply_multi_period_acopf(model, params)"
+    },
+    {
+      "op_id": "switching_limit_per_period",
+      "kind": "constraint",
+      "name": "每时段开关次数上限",
+      "parameters": [
+        "k"
+      ],
+      "latex": "\\sum_{l\\in\\mathcal L^s}|z_{l,t}-z_{l,t-1}|\\le {k},\\quad\\forall t",
+      "code_template": "apply_switching_limit_per_period(model, params)"
+    },
+    {
+      "op_id": "switching_limit_total",
+      "kind": "constraint",
+      "name": "全部时段开关次数上限",
+      "parameters": [
+        "k"
+      ],
+      "latex": "\\sum_t\\sum_{l\\in\\mathcal L^s}|z_{l,t}-z_{l,t-1}|\\le {k}",
+      "code_template": "apply_switching_limit_total(model, params)"
+    },
+    {
+      "op_id": "section_limit",
+      "kind": "constraint",
+      "name": "断面有功限额",
+      "parameters": [
+        "branches",
+        "limit_mw",
+        "direction"
+      ],
+      "latex": "\\sum_{l\\in S}P^f_{l,t}\\le {limit_mw}",
+      "code_template": "apply_section_limit(model, params)"
+    },
+    {
+      "op_id": "switching_penalty",
+      "kind": "objective",
+      "name": "开关操作惩罚",
+      "parameters": [
+        "beta"
+      ],
+      "latex": "+\\beta\\sum_t\\sum_{l\\in\\mathcal L^s}|z_{l,t}-z_{l,t-1}|",
+      "code_template": "apply_switching_penalty(model, params)"
+    },
+    {
+      "op_id": "loss_min",
+      "kind": "objective",
+      "name": "网损目标",
+      "parameters": [
+        "beta"
+      ],
+      "latex": "+\\beta\\sum_t\\sum_l(P^f_{l,t}+P^r_{l,t})",
+      "code_template": "apply_loss_min(model, params)"
+    },
+    {
+      "op_id": "voltage_deviation",
+      "kind": "objective",
+      "name": "电压偏差目标",
+      "parameters": [
+        "beta"
+      ],
+      "latex": "+\\beta\\sum_t\\sum_i(V_{i,t}-1)^2",
+      "code_template": "apply_voltage_deviation(model, params)"
+    }
+  ]
+}

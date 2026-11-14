@@ -1,0 +1,21 @@
+# 运行方式智能调整平台B — 公开演示
+
+Vue 3 + Vite 前端、FastAPI + SQLite 后端，通过单个 Docker Web Service 托管。
+
+## 数据与隐私
+
+只包含源代码、界面资源，以及程序生成的 **60 母线、12 机组、180 支路合成断面**。不是实际电网，也不是905节点数据。原始断面、真实历史、来源包、数据库、日志、内部文档、交付ZIP及任何密钥均不发布。历史页无真实记录，外部LLM/求解器未配置，mock不执行优化。机构标识不表示官方运营或背书。
+
+## Render 免费部署
+
+根目录 Dockerfile；Web Service 选择 Docker、Free，健康检查 `/api/health`。render.yaml 明确 `plan: free`，不配置付费数据库或磁盘。应用绑定 `0.0.0.0:$PORT`，前端与API同源。
+
+## 本地运行
+
+Python 3.12、Node 22。安装 requirements.txt；在 frontend 执行 npm ci 和 npm run build；回到根目录，设置 SNAPSHOT_DIR=data/public-demo，运行 python run.py --port 8014。
+
+## 使用限制
+
+免费服务可能休眠和冷启动，受资源与流量配额限制。临时SQLite和任务在重启/重新部署后清空。无账户隔离，不得输入私人信息、真实调度数据或密钥。公开演示禁用文件导入、批量测评与内部交付下载。仅供教学演示，不用于生产调度或安全决策。
+
+源码公开不自动授予额外许可证；第三方依赖和标识遵循各自权利声明。
