@@ -44,8 +44,8 @@ const modelName=computed(()=>s.spec?.omega.problem==='multi_period_acopf'?'固�
     </aside>
     <section class="panel workspace-panel">
       <div v-if="!s.spec||s.step===1" class="regional-welcome">
-        <div class="regional-heading"><div><div class="eyebrow">当前电网断面</div><h2>区域概览</h2></div><span class="regional-map-label">行政区地理底图</span></div>
-        <div class="regional-counts"><span><strong>{{s.summary?.counts?.bus??'—'}}</strong> 母线</span><span><strong>{{s.summary?.counts?.gen??'—'}}</strong> 机组</span><span><strong>{{s.summary?.counts?.branch??'—'}}</strong> 支路</span><span class="small-note">来自当前电网断面</span></div>
+        <div class="regional-heading"><div><div class="eyebrow">当前合成演示断面</div><h2>区域概览</h2></div><span class="regional-map-label">行政区地理底图</span></div>
+        <div class="regional-counts"><span><strong>{{s.summary?.counts?.bus??'—'}}</strong> 母线</span><span><strong>{{s.summary?.counts?.gen??'—'}}</strong> 机组</span><span><strong>{{s.summary?.counts?.branch??'—'}}</strong> 支路</span><span class="small-note">来自当前合成演示断面</span></div>
         <DaliMap compact/>
         <div class="start-guide"><span><b>01</b>描述调度条件</span><UiIcon name="arrow" :size="14"/><span><b>02</b>核对规格与方程</span><UiIcon name="arrow" :size="14"/><span><b>03</b>校验与风险协商</span></div>
         <el-button v-if="s.spec" type="primary" @click="s.step=2">查看当前解析</el-button>

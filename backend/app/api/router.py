@@ -485,7 +485,7 @@ def evaluate(task_id:str):
         if _digest(_draft(_task(task_id)))!=_digest(spec):
             raise HTTPException(409,"评估期间规格已变化，历史证据已归档，请重新评估当前草稿")
         store.update_task(task_id,metrics=metrics)
-    store.log(task_id,"已计算真实断面指标、直流N−1筛查与风险；基态评估不调用求解器，未生成调整后方案。")
+    store.log(task_id,"已计算合成演示断面指标、直流N−1筛查与风险；基态评估不调用求解器，未生成调整后方案。")
     return metrics
 
 @router.post("/tasks/{task_id}/adjust")

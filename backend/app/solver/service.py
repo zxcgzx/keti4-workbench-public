@@ -99,7 +99,7 @@ def start_job(task_id, spec, grid, mode):
                         "logs":[], "result":None, "error":None, "mode":mode}
     if mode == "mock":
         result = validate_result({"status":"mock","solver":"mock","periods":spec["omega"]["periods"],
-                                  "messages":["黑盒占位：未调用求解器；结果页仅展示调整前真实断面。"]},
+                                  "messages":["黑盒占位：未调用求解器；结果页仅展示调整前合成演示断面。"]},
                                  grid, spec["omega"]["periods"])
         result = _store_result(task_id, version, result, "mock")
         _patch(job_id, status="completed", result=result)
