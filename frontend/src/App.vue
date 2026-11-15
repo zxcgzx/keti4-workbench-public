@@ -78,8 +78,7 @@ onMounted(()=>s.init());
     <main id="workspace-main" class="app-main" tabindex="-1">
       <div class="error-banner" v-if="s.error"><UiIcon name="info"/><span>{{s.error}}</span><button @click="s.error=''">关闭</button><button v-if="!s.features.length" @click="s.init()">重新连接</button></div>
       <div v-if="s.reopening" class="notice" role="status"><UiIcon name="clock"/><span>正在打开已保存任务…</span></div>
-      <div class="notice" role="note">v4.0 公开演示：仅使用程序生成的60母线、12机组、180支路合成数据，与真实电网无关。未接入真实历史、LLM或优化器。请勿输入密钥、隐私或实际生产数据；免费实例重启会清空任务。机构标识不表示官方运营或背书。</div>
-      <RouterView v-if="!s.reopening"/>
+      <RouterView v-else/>
     </main>
     <footer class="app-footer" v-if="!embed"><span>运行方式智能调整平台B · 建模工作台</span><span>建模可追溯 · 风险分层展示</span></footer>
   </div>

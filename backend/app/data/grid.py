@@ -215,7 +215,7 @@ def _enrich(grid: dict, with_layout=True) -> dict:
     all_files = list(snapshot_dir().glob("*.txt"))
     single = len(all_files) == 1
     if single:
-        quality.append({"code": "SINGLE_SNAPSHOT", "severity": "warning", "message": "单断面演示模式：同一合成演示断面复制为 16 时段，不代表预测数据", "count": 16, "targets": []})
+        quality.append({"code": "SINGLE_SNAPSHOT", "severity": "warning", "message": "单断面演示模式：同一真实断面复制为 16 时段，不代表预测数据", "count": 16, "targets": []})
     summary = {
         "id": grid["meta"]["id"], "filename": grid["meta"]["filename"], "time": grid["meta"]["time"],
         "time_source": grid["meta"]["time_source"], "filename_time": grid["meta"]["filename_time"],

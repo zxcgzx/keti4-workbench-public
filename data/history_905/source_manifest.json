@@ -1,0 +1,411 @@
+{
+  "kind": "read_only_905_history_source_manifest",
+  "prepared_at": "2026-11-14T03:42:06.763847+00:00",
+  "snapshot_sha256": "85f724d78dfed663da29127f0da1b1cab71ace41e72c6e6cf6acea697d08509c",
+  "source_files": [
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/dali_build_case.m",
+      "bytes": 14289,
+      "sha256": "c06fd9954a2cd16af5dc1ef63070736698154d5e2bc1a820295eff17ebe51774"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/dali_eval_ac.m",
+      "bytes": 6493,
+      "sha256": "da4a66a42a2d8c4f9f2e1f562ca14449c3edade925984a673ca398e04ab3eaa1"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/dali_n1_check.m",
+      "bytes": 14714,
+      "sha256": "cd9e0e0f361d0b624c71094a0a673452556c7c113eb164805151d645b5a34d9f"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/dali_p0_config.m",
+      "bytes": 16360,
+      "sha256": "c78e8dd4b6b1541a528c2c1226fdc2afcc78389a99195f81c9a343ecf373fc48"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/dali_read_pasexp.m",
+      "bytes": 3412,
+      "sha256": "dee6e7505106ee157b6b2933354ac623b1889aabb085b9661f77274c5ffd364b"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/dali_setup_opf.m",
+      "bytes": 4636,
+      "sha256": "486e81a3ad03db4b93fe7d7a0ed0663f9d427dbd3e69ada835e2bd03554ab7f5"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/pasExp_20261004_153500_1.txt",
+      "bytes": 268861,
+      "sha256": "85f724d78dfed663da29127f0da1b1cab71ace41e72c6e6cf6acea697d08509c"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/run_dali_mp_acots.m",
+      "bytes": 34103,
+      "sha256": "0575c6186bb5e9bbe10426d0ac7325cc53bb50ef1ff13c56ed52b4a929124796"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/MPAC_log_20261105_233615.txt",
+      "bytes": 43609,
+      "sha256": "fb115dbb742349c30e688869a37a61a584f45773e36f3ebcc762973e7267b375"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/MPAC_n1_status.csv",
+      "bytes": 496,
+      "sha256": "a320ee94088e8a9a3e14d929b0efe07cad9302b73d4698ba3b35ec1ff346af24"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/MPAC_periods.csv",
+      "bytes": 3396,
+      "sha256": "6d9193e3499db24b497b0b6017573720f72f68d904d3d0e8b03fbac414199f56"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/MPAC_preventive_n1.csv",
+      "bytes": 612,
+      "sha256": "4ebe9b0cf860d47d4bd6bf9bb4316fe2ae477ada038eae8dfa0db14b61ab5258"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/MPAC_report.md",
+      "bytes": 4850,
+      "sha256": "4ca6be69e5d7065a02f68d242dc2704fd2302602dc48e00e26419321de7861ed"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/MPAC_solutions.mat",
+      "bytes": 2853729,
+      "sha256": "abee680cb830b4e1b0f369f8601a1ca3cb203e0eb00cfb6eb1dc42cbb23507f8"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/MPAC_stage_costs.csv",
+      "bytes": 4451,
+      "sha256": "c6e83736430f0786644ab92eb2f1d9b22782d03fcd69c7626225b21b0072fd33"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/MPAC_timing.mat",
+      "bytes": 1420,
+      "sha256": "baaf40ef75d618ac8dd7105b8d5375ddec38af5f4a62b43ab352c6e6a13d2f03"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t01_no_opening_sc1.csv",
+      "bytes": 13377,
+      "sha256": "8254eeec6fee378b041303881c626318bb677c199a2440965eb9c2466a78a2aa"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t01_open_151.csv",
+      "bytes": 12781,
+      "sha256": "901689afdec00c8490dce8f1e918fcbb029072eb91acc5ab21cfe6275d720957"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t02_no_opening_sc1.csv",
+      "bytes": 12914,
+      "sha256": "d7bdcc9262859566ec5fa1080e2caf5b0d04b380417bd952664471e33d8f6e7a"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t02_open_151.csv",
+      "bytes": 13036,
+      "sha256": "c980b6cfdc8f3b18c6b789b6fe86bf4784f16400d11c992f3d88c9bcb82f319d"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t03_no_opening_sc1.csv",
+      "bytes": 12951,
+      "sha256": "38192a72144df9c0c72c0c610b4f35df6c92969c16e0cb133b59e52b7bbc64e5"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t03_open_151.csv",
+      "bytes": 12194,
+      "sha256": "d3204a8d4dd8a53a73bb29fa2a36d77c65e5a50308c82b01a3cb72792280169d"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t04_no_opening_sc1.csv",
+      "bytes": 13152,
+      "sha256": "dfa68109f0ea31dfb539aaaf7b023fc324f2dd520675dfc53f483ce85fe100d2"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t04_open_151.csv",
+      "bytes": 12223,
+      "sha256": "38740a50379bebc9824afc1199a1b8d5776a05d9241663926e4b9e7bee33e215"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t05_no_opening_sc1.csv",
+      "bytes": 13073,
+      "sha256": "d9cd956f3dafc9736a8d0d27f314cf009673f794e77f3eac083ec2bbaeb2f475"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t05_open_151.csv",
+      "bytes": 12135,
+      "sha256": "1dd214161fc3a67e993192409e174b5a33e0cfb87b506d0831584de31eab577c"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t06_no_opening_sc1.csv",
+      "bytes": 13161,
+      "sha256": "bb5b01104fec2ff65719760a2ca40a197d9e0305a822fdbd87c717ac5b61f008"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t06_open_151.csv",
+      "bytes": 12302,
+      "sha256": "08b15ce14633dfa25cdd49c8a781395f96882a1ebf48568397680c5039b02f8c"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t07_no_opening_sc1.csv",
+      "bytes": 13534,
+      "sha256": "73192f4fabe40a386be23dc21cf21ae77f0bd1a662df01fd1e6f315b7a4fff8f"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t07_open_151.csv",
+      "bytes": 12555,
+      "sha256": "b2089a523e12732a17bb449d07874226f18f59cf35f2bedbc4af09724bdb7549"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t08_no_opening_sc1.csv",
+      "bytes": 13330,
+      "sha256": "48ea076178c98cd549d27cb31c81087b5000ad14a4df9b27e9cfa7af770792ec"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t08_open_151.csv",
+      "bytes": 12883,
+      "sha256": "36045a966e9363ac5e75da5a041c5f4c91f1bcabaa10754077e9b0fa95a5cd0f"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t09_no_opening_sc1.csv",
+      "bytes": 12817,
+      "sha256": "7b8385fc97e425601db4be975c7778ba062f80eb84c4b0843de37d4c4ebf52f3"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t09_open_151.csv",
+      "bytes": 11918,
+      "sha256": "3f9518e766dbf87c0eb721dd56ec7eb5470c208be63e57660ae1de9b9a315606"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t10_no_opening_sc1.csv",
+      "bytes": 12855,
+      "sha256": "b8eb1d04f03f453d483d66192dfde2930c692d9915dee5ddc2eed0c4babc9523"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t10_open_151.csv",
+      "bytes": 11961,
+      "sha256": "f1f1fb733a68d389e83c84f22a8b96e0bd5544c24beb91488fef89288dd635a6"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t11_no_opening_sc1.csv",
+      "bytes": 12966,
+      "sha256": "ecedd2fd2a42540d9aeea51f85093b801839022ef1cf84a56dce859692da18a3"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t11_open_151.csv",
+      "bytes": 12009,
+      "sha256": "df34496c35dee4d2a10132dc11de6e07c6b4fb297bc7b9d39c78236eaf18b178"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t12_no_opening_sc1.csv",
+      "bytes": 13656,
+      "sha256": "39c6cd8f87416774e8ffdda9707c6b9ad13da2d56b7e9ec5fd147e3610cfad4b"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t12_open_151.csv",
+      "bytes": 12028,
+      "sha256": "6b2b7c3119ca68bcadea2c91ebf3d2e250192e161b207431a4ae17c720af86a5"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t13_no_opening_sc1.csv",
+      "bytes": 13086,
+      "sha256": "3c9b17150bec32ee3d973df24a61cefe459cd9c1e6a72669ed3055ded10e0722"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t13_open_151.csv",
+      "bytes": 11921,
+      "sha256": "da1b9d5344e73069e84e3001d4ba09da89f16a991ee527be8aa5946d6e88eeaf"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t14_no_opening_sc1.csv",
+      "bytes": 13131,
+      "sha256": "9ee68571d278a08ce9b59a3367b6b3c74422a4393ce1454db3220155e4d93cf1"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t14_open_151.csv",
+      "bytes": 11863,
+      "sha256": "3a9b578d6082924fb3f9575e896b19edce7941088f50472cb998c5778dd9bd41"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t15_no_opening_sc1.csv",
+      "bytes": 13182,
+      "sha256": "f9d99ace404ebad7181aed74df7747f5932bf42e920fbd6d9a50272b440ba3f4"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t15_open_151.csv",
+      "bytes": 11915,
+      "sha256": "9ce970f96ba5d8e7cc0eeb7007ee4c2d05105775ac1eb5948c370d32562b5406"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t16_no_opening_sc1.csv",
+      "bytes": 12669,
+      "sha256": "367f9b71a7a70524f01f0e8a5386491d67527f46c2d854ad6b0cf87abbe02e94"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_detail_MPAC_t16_open_151.csv",
+      "bytes": 11835,
+      "sha256": "f2e8d281681bed27983d339b80753d61539b92aa765e0f30ca367ef3ebd5163b"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t01_no_opening_sc1.csv",
+      "bytes": 29538,
+      "sha256": "aaa84aa379665f57692b43368dace42c568e8263da3b2fbc073a53645783494e"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t01_open_151.csv",
+      "bytes": 26656,
+      "sha256": "f97ece5fb66b3dccd7cf944b02ff48f0355bdd0e4c703de3394ff798809f8cb6"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t02_no_opening_sc1.csv",
+      "bytes": 29541,
+      "sha256": "468abdd34cd82a1e9cfb55cf7c67b37d8492e7a594d5de5712bf63a620d862f8"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t02_open_151.csv",
+      "bytes": 26663,
+      "sha256": "8e345f6d02ad775b98c659c67e73ebbe852143210c4d6d9e672558697db371fe"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t03_no_opening_sc1.csv",
+      "bytes": 28815,
+      "sha256": "c7697296bf626a8e6f99c437cc699ec4db287fe689a90f19df8a24e8ea93b71b"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t03_open_151.csv",
+      "bytes": 25939,
+      "sha256": "462aa529951aceb8383b7cd5d167842d5aa0c97240d16da613f6250f537e65cb"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t04_no_opening_sc1.csv",
+      "bytes": 29539,
+      "sha256": "8ed6602032f254dee7dd22d601ecb0a80a67e54bf760a907b4bb95e6dc3ef5e2"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t04_open_151.csv",
+      "bytes": 26658,
+      "sha256": "442fcaaa43f3536e50075f9156bf7224c2ff30975cf0957d84c226585a079346"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t05_no_opening_sc1.csv",
+      "bytes": 29437,
+      "sha256": "94f51798e64eaeb520cca1e187ce7714e766d6f3d4fd22ae21d6998f8e367718"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t05_open_151.csv",
+      "bytes": 26556,
+      "sha256": "768ec059d9a9f19af10ac7235301f5921789d98c6744122daeab9e66266407fb"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t06_no_opening_sc1.csv",
+      "bytes": 28810,
+      "sha256": "7fd6df3101e9d67ac4ec3c05acaa80aa339141321ef64fd3bb1f27e3f97750a7"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t06_open_151.csv",
+      "bytes": 25942,
+      "sha256": "02c94515f0aab937ecc5e09574fb09bee2417a8914b801ffb2f46f2094a6cba5"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t07_no_opening_sc1.csv",
+      "bytes": 29534,
+      "sha256": "ca44edcf4e2b29396d0543b2dea9675263e0e625a0f875c6f0872fa434a3c225"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t07_open_151.csv",
+      "bytes": 26659,
+      "sha256": "6b7f1f20c4c9cc30873e6b0d33679a43af14c1ce50ed43379f9a46e7c126e177"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t08_no_opening_sc1.csv",
+      "bytes": 29534,
+      "sha256": "692a32f37b283fd35d74ed3ebe08fd3ba7714b0dc404cab3c3cebefa1612d0f5"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t08_open_151.csv",
+      "bytes": 26655,
+      "sha256": "dfe3e71c3acbc9e7825d91d02e7dcc70a32290ecab05965542028a9a42479d59"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t09_no_opening_sc1.csv",
+      "bytes": 28821,
+      "sha256": "41a49c3ef6015eb0d84e5438cf256c3fc3dc55c7cd4dfa17500216896ce41566"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t09_open_151.csv",
+      "bytes": 25942,
+      "sha256": "4b2b4055eb9e658ccbe17e87f47e41cc15665f9ebb5ca02289e0eef9b196ee06"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t10_no_opening_sc1.csv",
+      "bytes": 29431,
+      "sha256": "536228e79bc45e2dd0b4fb9d2f63e772cb6bb793e1da3df101821f5b857e355b"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t10_open_151.csv",
+      "bytes": 26558,
+      "sha256": "2b4a3967f3c0d4403e96b2b1b759482c98e647e6f8caa08b809a61bf48e1474f"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t11_no_opening_sc1.csv",
+      "bytes": 29534,
+      "sha256": "2ccd058f1e3454bc020d207769b57bb554cc5e5ab6ccc1a2d4aba88065d7250d"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t11_open_151.csv",
+      "bytes": 26662,
+      "sha256": "6bada00f20d1c0b9c804b10d9b65b52443a4329c5f515b9972f10dd3e5c6ad61"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t12_no_opening_sc1.csv",
+      "bytes": 28820,
+      "sha256": "9ed9710f184bb7d420b219013765e15096e5449ae7f03e12e53a7209bdd15df2"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t12_open_151.csv",
+      "bytes": 25947,
+      "sha256": "1de0aafc5560700f10f138aca4a13243752558c831b7e9d2a4be5a7dd9edf2c7"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t13_no_opening_sc1.csv",
+      "bytes": 29531,
+      "sha256": "850e16e4550f8b327684f512c9bac4d9e2df25ed1a607c723a73e159f4106807"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t13_open_151.csv",
+      "bytes": 26663,
+      "sha256": "bd2af84af78d6c9f21ee63492b3454ba44011c925b5980c01882735f5b01fe3d"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t14_no_opening_sc1.csv",
+      "bytes": 29534,
+      "sha256": "0ed1aa4c99327f52081c52ed2a47cc7c542d2fbfc022b648a85507cbd5b8bf38"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t14_open_151.csv",
+      "bytes": 26664,
+      "sha256": "d25ad30bce71704fffa0bedf7eb9427c61bc86f1b67f986992a9de9ce41ce9ce"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t15_no_opening_sc1.csv",
+      "bytes": 28458,
+      "sha256": "c4fd1192872579048287c7fa52c86ce2d2c220783595d071df657a8111687c25"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t15_open_151.csv",
+      "bytes": 25585,
+      "sha256": "6c94963d7513e9ff63278c0aaeae299aefd883ea42ce677c0c34cc1cbfbd4ce9"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t16_no_opening_sc1.csv",
+      "bytes": 29531,
+      "sha256": "bb24c39130209223f128c8fc6e39cc01923c62ce6e6fde748a6c43705e8b269d"
+    },
+    {
+      "path": "905节点计算/files (16)/dali_matlab_v1.3/speed_E2_rolling/n1_islanding_MPAC_t16_open_151.csv",
+      "bytes": 26661,
+      "sha256": "7a833f0a9d5ff4386482c902fa2811e1cce8fecebc4dcbb885d4a235aba08249"
+    }
+  ],
+  "originals_modified": false,
+  "source_bytes": 4571662,
+  "generator_sha256": "80b42f53918e2126bf30ab91e6a8158af8398cdb0a2f38fe140d1dbcb693ce94",
+  "notes": "Source hashes checked before extraction and again before output. No optimizer or MATLAB process was started."
+}

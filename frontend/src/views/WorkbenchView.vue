@@ -41,15 +41,15 @@ const modelName=computed(()=>s.spec?.omega.problem==='multi_period_acopf'?'固�
       <div class="chat-composer">
         <el-select v-model="selectedCase" placeholder="选择演示用例 D1–D10" @change="chooseCase" class="full-width"><el-option v-for="c in cases" :key="c.id" :label="c.id+' · '+c.instruction" :value="c.id"/></el-select>
         <div class="template-tags"><button v-for="(label,i) in ['检修','高温限额','负荷增长','开关次数','断面限额']" :key="label" @click="chooseCase(['D2','D3','D1','D5','D6'][i])">{{label}}</button></div>
-        <div class="template-tags"><button @click="s.instruction='第1–8时段，机组G12有功出力设为80MW，采用固定拓扑AC-OPF。'">机组出力</button><button @click="s.instruction='采用AC-OTS，加入机组启停，最小开机4时段，最小停机4时段，初始已持续4时段，以网损最小为目标。'">机组启停</button><button @click="s.instruction='采用固定拓扑AC-OPF，以发电成本最小为目标。'">经济性目标</button></div>
+        <div class="template-tags"><button @click="s.instruction='第1–8时段，机组G237有功出力设为80MW，采用固定拓扑AC-OPF。'">机组出力</button><button @click="s.instruction='采用AC-OTS，加入机组启停，最小开机4时段，最小停机4时段，初始已持续4时段，以网损最小为目标。'">机组启停</button><button @click="s.instruction='采用固定拓扑AC-OPF，以发电成本最小为目标。'">经济性目标</button></div>
         <el-input v-model="s.instruction" type="textarea" :rows="s.parse?3:5" resize="vertical" placeholder="例如：第 1–8 时段，母线 43 的有功负荷提高 20%。" data-testid="instruction-input"/>
         <div class="composer-actions"><el-tooltip content="语音交互待开发"><span class="small-note">语音 <StatusBadge name="语音输入"/></span></el-tooltip><el-button type="primary" :disabled="!s.instruction.trim()" :loading="s.busy" @click="s.start().catch(()=>{})" data-testid="parse-instruction">解析指令 <UiIcon name="arrow" :size="15"/></el-button></div>
       </div>
     </aside>
     <section class="panel workspace-panel">
       <div v-if="!s.spec||s.step===1" class="regional-welcome">
-        <div class="regional-heading"><div><div class="eyebrow">当前合成演示断面</div><h2>区域概览</h2></div><span class="regional-map-label">地图 / 电气网架</span></div>
-        <div class="regional-counts"><span><strong>{{s.summary?.counts?.bus??'—'}}</strong> 母线</span><span><strong>{{s.summary?.counts?.gen??'—'}}</strong> 机组</span><span><strong>{{s.summary?.counts?.branch??'—'}}</strong> 支路</span><span class="small-note">来自当前合成演示断面</span></div>
+        <div class="regional-heading"><div><div class="eyebrow">当前电网断面</div><h2>区域概览</h2></div><span class="regional-map-label">地图 / 电气网架</span></div>
+        <div class="regional-counts"><span><strong>{{s.summary?.counts?.bus??'—'}}</strong> 母线</span><span><strong>{{s.summary?.counts?.gen??'—'}}</strong> 机组</span><span><strong>{{s.summary?.counts?.branch??'—'}}</strong> 支路</span><span class="small-note">来自当前电网断面</span></div>
         <GridScene compact :snapshot-id="s.snapshotId"/>
         <div class="start-guide"><span><b>01</b>描述调度条件</span><UiIcon name="arrow" :size="14"/><span><b>02</b>核对规格与方程</span><UiIcon name="arrow" :size="14"/><span><b>03</b>校验与风险协商</span></div>
         <el-button v-if="s.spec" type="primary" @click="s.step=2">查看当前解析</el-button>

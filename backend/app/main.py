@@ -1,5 +1,4 @@
 """Local demonstration API and bundled frontend."""
-import os
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse, JSONResponse
@@ -19,22 +18,6 @@ app = FastAPI(title="运行方式智能调整平台B",version="4.0.0",lifespan=l
 app.include_router(router)
 from app.api.workspace import router as workspace_router
 app.include_router(workspace_router)
-
-@app.middleware("http")
-async def public_demo_guard(request, call_next):
-    if os.getenv("PUBLIC_DEMO") == "1":
-        if request.url.path.startswith(("/api/delivery", "/api/measurements", "/api/testsets", "/api/data/package/download", "/api/model-resources/preview")) or request.url.path.endswith("/results/import"):
-            return JSONResponse(status_code=403, content={"detail":"公开演示关闭导入、批量测评和内部资料下载"})
-        if request.method == "POST" and request.url.path == "/api/coordinates":
-            return JSONResponse(status_code=403, content={"detail":"公开演示禁用实际设备坐标上传"})
-        if request.method in ("POST", "PUT", "PATCH"):
-            raw = await request.body()
-            if len(raw) > 262144:
-                return JSONResponse(status_code=413, content={"detail":"请求超过公开演示256KB限制"})
-    response = await call_next(request)
-    response.headers["X-Content-Type-Options"] = "nosniff"
-    response.headers["Referrer-Policy"] = "same-origin"
-    return response
 
 @app.exception_handler(KeyError)
 async def missing(request,exc):

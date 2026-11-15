@@ -1,0 +1,246 @@
+[
+  {
+    "id": "D1",
+    "instruction": "第 1–8 时段，母线 43 的有功负荷提高 20%。",
+    "expected_level": "L1",
+    "expected": {
+      "delta_pi": [
+        {
+          "target": "B43",
+          "param": "PD",
+          "operation": "scale",
+          "value": 1.2,
+          "periods": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        }
+      ],
+      "structural": []
+    }
+  },
+  {
+    "id": "D2",
+    "instruction": "110kV 线路 L376（54–359）第 5–12 时段检修停运。",
+    "expected_level": "L1",
+    "expected": {
+      "delta_pi": [
+        {
+          "target": "L376",
+          "param": "BR_STATUS",
+          "operation": "set",
+          "value": 0,
+          "periods": [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ]
+        }
+      ],
+      "structural": []
+    },
+    "expected_codes": [
+      "I203"
+    ],
+    "forbidden_codes": [
+      "W206"
+    ]
+  },
+  {
+    "id": "D3",
+    "instruction": "明天午后持续高温，220kV 线路 L155（174–172）热稳能力下降。",
+    "expected_level": "L2",
+    "expected": {
+      "delta_pi": [
+        {
+          "target": "L155",
+          "param": "RATE_A",
+          "direction": "decrease",
+          "value": null,
+          "periods": []
+        }
+      ],
+      "structural": []
+    },
+    "questions": [
+      "periods",
+      "amplitude"
+    ]
+  },
+  {
+    "id": "D4",
+    "instruction": "母线 314 上的机组近期出力受限。",
+    "expected_level": "L2",
+    "expected": {
+      "delta_pi": [
+        {
+          "target": "G237",
+          "param": "PMAX",
+          "direction": "decrease",
+          "value": null,
+          "periods": []
+        }
+      ],
+      "structural": []
+    },
+    "questions": [
+      "periods",
+      "amplitude"
+    ]
+  },
+  {
+    "id": "D5",
+    "instruction": "母线 43 负荷提高 10%，每个时段开关操作不超过 2 次。",
+    "expected_level": "L3",
+    "expected": {
+      "delta_pi": [
+        {
+          "target": "B43",
+          "param": "PD",
+          "operation": "scale",
+          "value": 1.1,
+          "periods": []
+        }
+      ],
+      "structural": [
+        {
+          "op_id": "switching_limit_per_period",
+          "params": {
+            "k": 2
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "D6",
+    "instruction": "由 L428、L429 组成的断面，有功限额设为 300 MW。",
+    "expected_level": "L3",
+    "expected": {
+      "delta_pi": [],
+      "structural": [
+        {
+          "op_id": "section_limit",
+          "params": {
+            "branches": [
+              "L428",
+              "L429"
+            ],
+            "limit_mw": 300,
+            "direction": "forward"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "D7",
+    "instruction": "午高峰高温，220kV 线路 L155 热稳限额下降，要求满足 N−1，尽量少动开关。",
+    "expected_level": "L4",
+    "expected": {
+      "delta_pi": [
+        {
+          "target": "L155",
+          "param": "RATE_A",
+          "direction": "decrease",
+          "value": null,
+          "periods": []
+        }
+      ],
+      "structural": [
+        {
+          "op_id": "switching_penalty",
+          "params": {
+            "beta": null
+          }
+        }
+      ]
+    },
+    "questions": [
+      "periods",
+      "amplitude"
+    ]
+  },
+  {
+    "id": "D8",
+    "instruction": "母线 99999 的负荷提高 10%。",
+    "expected_level": "L1",
+    "must_fail": true,
+    "expected_errors": [
+      "E101"
+    ],
+    "expected": {
+      "delta_pi": [
+        {
+          "target": "B99999",
+          "param": "PD",
+          "operation": "scale",
+          "value": 1.1,
+          "periods": []
+        }
+      ],
+      "structural": []
+    }
+  },
+  {
+    "id": "D9",
+    "instruction": "午高峰负荷偏高，注意线路过载。",
+    "expected_level": "待追问",
+    "expected": {
+      "delta_pi": [],
+      "structural": []
+    },
+    "questions": [
+      "object",
+      "periods"
+    ]
+  },
+  {
+    "id": "D10",
+    "instruction": "220kV 线路 L442（28–774）第 1–16 时段检修停运。",
+    "expected_level": "L1",
+    "expected": {
+      "delta_pi": [
+        {
+          "target": "L442",
+          "param": "BR_STATUS",
+          "operation": "set",
+          "value": 0,
+          "periods": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16
+          ]
+        }
+      ],
+      "structural": []
+    },
+    "expected_codes": [
+      "W206"
+    ]
+  }
+]

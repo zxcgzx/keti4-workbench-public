@@ -50,7 +50,7 @@ def create_task(instruction, engine_name="demo", snapshot_id=None, settings=None
     with Session(engine()) as session:
         session.add(row)
         session.commit()
-    log(task_id, "任务已创建；合成演示断面只读，等待解析。")
+    log(task_id, "任务已创建；真实断面只读，等待解析。")
     return get_task(task_id)
 
 def get_task(task_id):

@@ -77,10 +77,8 @@ def model_package(task_id:str):
 
 @router.get('/data/package')
 def data_package():
-    grid=load_grid()
-    return {'filename':None,'bytes':0,'file_count':0,'uncompressed_bytes':0,
-            'counts':{k:len(grid[k]) for k in ('bus','gen','branch')},
-            'status':'excluded_public_demo','snapshot_mode':'synthetic','history_available':False}
+    data=read_json(ROOT/'data'/'package-index.json',{})
+    return {k:data.get(k) for k in ('filename','bytes','file_count','uncompressed_bytes','counts')}|{'status':'ready' if (ROOT/'data'/'905节点计算.zip').is_file() else 'missing','snapshot_mode':'single','history_available':True}
 
 @router.get('/data/package/download')
 def data_package_download():

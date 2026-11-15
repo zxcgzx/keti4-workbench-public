@@ -8,8 +8,8 @@ services:
     autoDeployTrigger: commit
     envVars:
       - key: PUBLIC_DEMO
-        value: "1"
+        value: "0"
       - key: SNAPSHOT_DIR
-        value: data/public-demo
+        value: data/snapshots
       - key: WORKBENCH_RUNS_DIR
         value: /tmp/workbench-runs

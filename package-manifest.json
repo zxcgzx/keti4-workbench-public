@@ -1,0 +1,970 @@
+{
+  "version": "4.0",
+  "files": [
+    {
+      "path": ".env.example",
+      "bytes": 430,
+      "sha256": "48d0948b8fcd19412449fb42780d2332acb6ed9f92f1e09a58bc7052280d5eae"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3895,
+      "sha256": "3e760a89cdce8a5efa43b32390e862ecb36f2eb9983614588bfe8736ec66affb"
+    },
+    {
+      "path": "backend/app/__init__.py",
+      "bytes": 44,
+      "sha256": "d79f695c3bc96545bbf2284d8d8875c44618bb55d780845cc83758d6958e2c5d"
+    },
+    {
+      "path": "backend/app/api/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "backend/app/api/router.py",
+      "bytes": 29360,
+      "sha256": "bd975077d63c4b054d933b7cc194aa9b5f6b229b962ba059e5a3af524e1fd051"
+    },
+    {
+      "path": "backend/app/api/workspace.py",
+      "bytes": 13453,
+      "sha256": "1cd3a9f025c98b17d14bc4ad030bf553012855e7d97fbdc72ebf24d86267a6b5"
+    },
+    {
+      "path": "backend/app/checks/__init__.py",
+      "bytes": 43,
+      "sha256": "594c3695ad08961a27e414a8a8713d74ca65653bf76abca68704e6674adae02f"
+    },
+    {
+      "path": "backend/app/checks/diagnostics.py",
+      "bytes": 3324,
+      "sha256": "775bbdcf5915a98d339f558553165e334ae6e795a9a43ef70fc0d9318d96f2e4"
+    },
+    {
+      "path": "backend/app/checks/validator.py",
+      "bytes": 18802,
+      "sha256": "e5159378caf326a05771dfde396b6830f4b190e78159925c2847957151348f94"
+    },
+    {
+      "path": "backend/app/config.py",
+      "bytes": 2195,
+      "sha256": "8986dc176045eb92996feb751e42d569f3c4b6219b72aa5a561d94aff82629e8"
+    },
+    {
+      "path": "backend/app/data/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "backend/app/data/grid.py",
+      "bytes": 19864,
+      "sha256": "a2c754012a52c436a2557f6868a3708714477d51c3ae57ed79cc4280ee4243c3"
+    },
+    {
+      "path": "backend/app/history.py",
+      "bytes": 5669,
+      "sha256": "cd86b050332444b8b6d1180e9eadec57266e3b33431693d566a359826875bb9a"
+    },
+    {
+      "path": "backend/app/integrations/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "backend/app/integrations/catalog.py",
+      "bytes": 3188,
+      "sha256": "bd4068213491354639221221f5055e807b603e489628197c1f6e9393fb513f30"
+    },
+    {
+      "path": "backend/app/main.py",
+      "bytes": 1663,
+      "sha256": "7a76fbb7b278a452db3ac9254892a1377c084cc415f3dc8354292dd6044ba73b"
+    },
+    {
+      "path": "backend/app/metrics/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "backend/app/metrics/evaluate.py",
+      "bytes": 20934,
+      "sha256": "674be2282de750682de91d34b68e1ff887d49196da2dba7c69f68835d7b1ca85"
+    },
+    {
+      "path": "backend/app/modeling/__init__.py",
+      "bytes": 72,
+      "sha256": "5582f024b2c9f1a8058e26df72a263a984e1ae4ba223c1c0a97940e6f3bb1d2f"
+    },
+    {
+      "path": "backend/app/modeling/dynamic.py",
+      "bytes": 8346,
+      "sha256": "9877ed86663de7a4231fd26aee15fb42dcf5147e7e8eafe9cc4aa3b9207493f6"
+    },
+    {
+      "path": "backend/app/modeling/engine.py",
+      "bytes": 24676,
+      "sha256": "f10df9c052dea7ec5520d42de252ef1b21d806efbd3100c57f790e082fc9113d"
+    },
+    {
+      "path": "backend/app/modeling/generator.py",
+      "bytes": 11179,
+      "sha256": "f3ff76a0e447b04c0835395d1468d228d69be346de6318a2635318ef2a463645"
+    },
+    {
+      "path": "backend/app/modeling/model_template.py.tpl",
+      "bytes": 16776,
+      "sha256": "84a0c5e223e6e55ed5d199a9bda4c1b7770077e6cf6d06f3c7789767776cd7d5"
+    },
+    {
+      "path": "backend/app/modeling/problem.py",
+      "bytes": 2507,
+      "sha256": "6d68cdc7f0e0037835175f9b8874d8806eab099e4c16a559a0d34f5ad651fdfe"
+    },
+    {
+      "path": "backend/app/modeling/trial.py",
+      "bytes": 3719,
+      "sha256": "95dba7e9678750309b56c3728bf864e09d2df483949a047da2096c839f7f290f"
+    },
+    {
+      "path": "backend/app/solver/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "backend/app/solver/result_schema.json",
+      "bytes": 2725,
+      "sha256": "95d09a85eed4f99d7c0246957aabee0b0e46b963f15a61ab80dbb94c774cae71"
+    },
+    {
+      "path": "backend/app/solver/service.py",
+      "bytes": 9357,
+      "sha256": "9a33c92263b013f9234f32aec75b9743363e0a1a150945d467298569377310ef"
+    },
+    {
+      "path": "backend/app/spec/__init__.py",
+      "bytes": 56,
+      "sha256": "ea4e0279ae21d52e55c2016abb9af2c01a2a7bfc76a6634e9f002662db552dab"
+    },
+    {
+      "path": "backend/app/spec/model_schema.json",
+      "bytes": 11042,
+      "sha256": "43670ec22854b34af8115a4298be800c4b6e8f25ae3411a832719d67603e2103"
+    },
+    {
+      "path": "backend/app/spec/models.py",
+      "bytes": 4297,
+      "sha256": "5015ba6f693b0e7e07432fba72bfe0f05fe7684bfabe607f2faa0f6de8ff7a12"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_AMS-Regular-BQhdFMY1.woff2",
+      "bytes": 28076,
+      "sha256": "0cdd387c9590a1a9f9794560022dbb59654a7d86f187aa0c81495ad42d3a7308"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_AMS-Regular-DMm9YOAa.woff",
+      "bytes": 33516,
+      "sha256": "30da91e84c893f875e252689faebdc590b2871145e8adc7f9a9d4dbd8ce0b251"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_AMS-Regular-DRggAlZN.ttf",
+      "bytes": 63632,
+      "sha256": "68534840bcfdd2bffb6f0e8deb48684dd01e7f04ea2813267577afb906de1d13"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Caligraphic-Bold-ATXxdsX0.ttf",
+      "bytes": 12368,
+      "sha256": "07d8e303ce4fc12b4bb54f1004170dd190a1f3db45d400fe68060df3e0897268"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Caligraphic-Bold-BEiXGLvX.woff",
+      "bytes": 7716,
+      "sha256": "1ae6bd7475590e97e7f145a89e09ccde322f7a6bc0b91607b1c8b8ee28290fed"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Caligraphic-Bold-Dq_IR9rO.woff2",
+      "bytes": 6912,
+      "sha256": "de7701e42cf1f4cf0b766c03fb27977207eee2f4fd5d76fa82188406da43ea4c"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Caligraphic-Regular-CTRA-rTL.woff",
+      "bytes": 7656,
+      "sha256": "3398dd02302557a793f2863f88e02d96ce10df2abffa07c8e9fa90775116e65c"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Caligraphic-Regular-Di6jR-x-.woff2",
+      "bytes": 6908,
+      "sha256": "5d53e70ad607c2352162dec9e0923fb54ecdafaccbf604cd8dcf7d00facb989b"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Caligraphic-Regular-wX97UBjC.ttf",
+      "bytes": 12344,
+      "sha256": "ed0b74372feefcbb9c0666b2e210da37b7e49fa7fbbf3eeb11db5f693dacfbb7"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Fraktur-Bold-BdnERNNW.ttf",
+      "bytes": 19584,
+      "sha256": "9163df9c7122432e6495b4229fa9071cf9ae86a758ae5efc4924ec2e1a6dbce1"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Fraktur-Bold-BsDP51OF.woff",
+      "bytes": 13296,
+      "sha256": "9be7ceb88004ab8ad124082246fbfcca4091e36385d4ec6ed1df67375dad50fb"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Fraktur-Bold-CL6g_b3V.woff2",
+      "bytes": 11348,
+      "sha256": "74444efd593c005e3f4573b44524704c0af0a937fe911cca9e94068d0d140d3f"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Fraktur-Regular-CB_wures.ttf",
+      "bytes": 19572,
+      "sha256": "1e6f9579e90e2cac37f8f60a597c436e075c114385652b7cbeb0dec0421291b3"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Fraktur-Regular-CTYiF6lA.woff2",
+      "bytes": 11316,
+      "sha256": "51814d270d06ff0255dba0799994fa4d8c84d11f09951d47595f4abb1f3602dc"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Fraktur-Regular-Dxdc4cR9.woff",
+      "bytes": 13208,
+      "sha256": "5e28753be717dac97f559f49bc10be9cf3c124ddcabda6659d11cb68febc6463"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Main-Bold-Cx986IdX.woff2",
+      "bytes": 25324,
+      "sha256": "0f60d1b897938ec918c8ce073092411baf9438f6739465693ff18b0f9d20b021"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Main-Bold-Jm3AIy58.woff",
+      "bytes": 29912,
+      "sha256": "c76c5d696297d51b9cb1639c7da4334f0e7dec81b42b11213b5e25ef671bb822"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Main-Bold-waoOVXN0.ttf",
+      "bytes": 51336,
+      "sha256": "138ac28d1663b3037e9c5f52371fa5c63d8324f4a38d22cd573e6ea3a3fd0cf8"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Main-BoldItalic-DxDJ3AOS.woff2",
+      "bytes": 16780,
+      "sha256": "99cd42a3c072d918f2f44984a807cf7aa16e13545fd0875fc07c6c65f99e715b"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Main-BoldItalic-DzxPMmG6.ttf",
+      "bytes": 32968,
+      "sha256": "70ee1f64a20f2048c21940ef46d0144fd215baa953ca69afd1e31e98544f708f"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Main-BoldItalic-SpSLRI95.woff",
+      "bytes": 19412,
+      "sha256": "a6f7ec0d846ac7ad975adb8959c37ed49b94acbc4ae436db9ce9e20287e4a64c"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Main-Italic-3WenGoN9.ttf",
+      "bytes": 33580,
+      "sha256": "0d85ae7cc30f23790a7f1a58c4a112fdca8aae769b6ba11429af1d98b1b6cb3a"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Main-Italic-BMLOBm91.woff",
+      "bytes": 19676,
+      "sha256": "f1d6ef86f3b11a528bd5185199bd2443ecb2b0dead96d88674b5a2c12be24bdf"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Main-Italic-NWA7e6Wa.woff2",
+      "bytes": 16988,
+      "sha256": "97479ca6cce906abc961ecac96faa5f9ca2e61b8e7670d475826bcdee9a7c267"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Main-Regular-B22Nviop.woff2",
+      "bytes": 26272,
+      "sha256": "c2342cd8b869e01752a9321dc17213fc40d4d04c79688c1d43f2cf316abd7866"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Main-Regular-Dr94JaBh.woff",
+      "bytes": 30772,
+      "sha256": "c6368d87e8a1a3a5d337623d83d8dc4b868f242a9ad476237d6f8d1e0f168cdc"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Main-Regular-ypZvNtVU.ttf",
+      "bytes": 53580,
+      "sha256": "d0332f52868370fd83ae7fa46470f90c8f2eab2fcf12bc4f88080b340c95a830"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Math-BoldItalic-B3XSjfu4.ttf",
+      "bytes": 31196,
+      "sha256": "f9377ab0271cda59af24bcffbd46a4d0c8a3572ffafdbb38de2ad5ea7b0d5ee5"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2",
+      "bytes": 16400,
+      "sha256": "dc47344dbb6cb5b655c8460d561f4df5f501b90c804ad3c6cec65fe322351ab1"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Math-BoldItalic-iY-2wyZ7.woff",
+      "bytes": 18668,
+      "sha256": "850c0af5c2238497febaf5e461d880bf458c341f42f4f330f1b1ab5698b1998e"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Math-Italic-DA0__PXp.woff",
+      "bytes": 18748,
+      "sha256": "8a8d244581371912b8f3f5a23e2437cb2a59cd9bcaebb0346e722c05737a2571"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Math-Italic-flOr_0UB.ttf",
+      "bytes": 31308,
+      "sha256": "08ce98e51b04d58945a301e639e02b6998af29fdfd61a7b8afdd07bbfc479d4a"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Math-Italic-t53AETM-.woff2",
+      "bytes": 16440,
+      "sha256": "7af58c5ec8f132a2ddde9027c6d7814decce4d3b822a11192a42a20e2e973264"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_SansSerif-Bold-CFMepnvq.ttf",
+      "bytes": 24504,
+      "sha256": "1ece03f79f95277d57dc7f6b435a74e1379b0d46104a8530286b60ff49369ea0"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_SansSerif-Bold-D1sUS0GD.woff2",
+      "bytes": 12216,
+      "sha256": "e99ae51144bf1232efcc1bfe5add36262c6866b0faab24fa75740e1b98577a62"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_SansSerif-Bold-DbIhKOiC.woff",
+      "bytes": 14408,
+      "sha256": "ece03cfd83e22c212cdef66feb8442d25a083beb988db3f1883f3f9738d750ba"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_SansSerif-Italic-C3H0VqGB.woff2",
+      "bytes": 12028,
+      "sha256": "00b26ac825e2095056396e0553b8ac26d3f8ad158c3826e28b4c45b385c4714a"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_SansSerif-Italic-DN2j7dab.woff",
+      "bytes": 14112,
+      "sha256": "91ee67500cc0129aa0ace3ac5c61ff1692102f0f31d02b69347fba35dcb75bf2"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_SansSerif-Italic-YYjJ1zSn.ttf",
+      "bytes": 22364,
+      "sha256": "3931dd81faed86ba021bb2bbdc36f5bed9a38d6b4f4077aca59b265aa1b02083"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_SansSerif-Regular-BNo7hRIc.ttf",
+      "bytes": 19436,
+      "sha256": "f36ea897e19f4a2e571d1e900e4e3710e438deb05a842486045ba0a3e616a4ad"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_SansSerif-Regular-CS6fqUqJ.woff",
+      "bytes": 12316,
+      "sha256": "11e4dc8a6471ff6d6ee561d53d10fde8f7489e798257ff449c5d37c197435605"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_SansSerif-Regular-DDBCnlJ7.woff2",
+      "bytes": 10344,
+      "sha256": "68e8c73ef42afd3ccec58bf0fba302cce448938e7fc020a5e31f8a952eee1342"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Script-Regular-C5JkGWo-.ttf",
+      "bytes": 16648,
+      "sha256": "1c67f068fea8bb09bf099c088b1cf64bd27516a6e07f4684344873564bb66a67"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Script-Regular-D3wIWfF6.woff2",
+      "bytes": 9644,
+      "sha256": "036d4e95149b69ff9bcc0cd55771efeb25ffa3947293e69acd78d5ac328c684b"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Script-Regular-D5yQViql.woff",
+      "bytes": 10588,
+      "sha256": "d96cdf2b3bdd4d64a8fd5f74a4c467f123a8a73931cd435889f08ffaf9bf947a"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Size1-Regular-C195tn64.woff",
+      "bytes": 6496,
+      "sha256": "c943cc986384f59e86bea5fd7dc50a9c4dfe567a7c05eb40d6790720dead97c9"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Size1-Regular-Dbsnue_I.ttf",
+      "bytes": 12228,
+      "sha256": "95b6d2f1a50173bfedb8c63e1d1c99b10427d0a4df4201cb44513b226951a22b"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Size1-Regular-mCD8mA8B.woff2",
+      "bytes": 5468,
+      "sha256": "6b47c40166b6dbe21a5dfca7718413f2147fd2399be1ba605d8ad39cedf25dfe"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Size2-Regular-B7gKUWhC.ttf",
+      "bytes": 11508,
+      "sha256": "a6b2099fb555c60e3a0db3a08842ebf1d732c6eb4e4bf44913613bed4fc4e39b"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Size2-Regular-Dy4dx90m.woff2",
+      "bytes": 5208,
+      "sha256": "d04c54219f9eaec6d4d4fd42dfb28785975a4794d6b2fc71e566b9cd6db842dd"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Size2-Regular-oD1tc_U0.woff",
+      "bytes": 6188,
+      "sha256": "2014c523c3210bcc166648c4d4cc57f05b747df07a24277bf71c51e67dc79e3d"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Size3-Regular-CTq5MqoE.woff",
+      "bytes": 4420,
+      "sha256": "6ab6b62e9b62dae2c00dd90f791bd10950be0ecc3490d7d6045f51c2e8fe0949"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Size3-Regular-DgpXs0kz.ttf",
+      "bytes": 7588,
+      "sha256": "500e04d54f0d51666332c9d2089aa803be22aa878eca539e59fa53c6e522b082"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Size4-Regular-BF-4gkZK.woff",
+      "bytes": 5980,
+      "sha256": "99f9c6750b489c9462bf04900bd3f939df9b829339daaaaa99ef5495cdddea58"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Size4-Regular-DWFBv043.ttf",
+      "bytes": 10364,
+      "sha256": "c647367d1dd4e162468717d020e1fc0f1dc5c26ebfdffbe55261713bf88c5877"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2",
+      "bytes": 4928,
+      "sha256": "a4af7d414440a1c1790825cfb700cf9cf43b0f2c4b04f0ebc523011ad9853ec0"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Typewriter-Regular-C0xS9mPB.woff",
+      "bytes": 16028,
+      "sha256": "e14fed02b1aba7ce9f5afd5844b5d0321b22351febc720e0de8b8723527609f7"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Typewriter-Regular-CO6r4hn1.woff2",
+      "bytes": 13568,
+      "sha256": "71d517d67827787cfabdf186914cc3358eda539e37931941f2b2fd4a21f68c0b"
+    },
+    {
+      "path": "backend/app/static/assets/KaTeX_Typewriter-Regular-D3Ib7_Hf.ttf",
+      "bytes": 27556,
+      "sha256": "f01f3e87d9c6a61c0c081ceb577abd864eb00a612f7ac1620dd6915fad2ef5aa"
+    },
+    {
+      "path": "backend/app/static/assets/charts-BxaWvfH4.js",
+      "bytes": 1036314,
+      "sha256": "507b1b23974c55db935fc68174c060e06783afb01eb1690fafb35e035fe78e16"
+    },
+    {
+      "path": "backend/app/static/assets/index-DKivdaoo.js",
+      "bytes": 197303,
+      "sha256": "29e6e7f713fd7050b230e5e423519b94f98abf0e9cb1c8ce55808e062b094ca4"
+    },
+    {
+      "path": "backend/app/static/assets/index-biVZZuRj.css",
+      "bytes": 482270,
+      "sha256": "e21372b2e9fe92c012bac502c8affd6d22132d616147f5b347b6873aeeb9958b"
+    },
+    {
+      "path": "backend/app/static/assets/math-Bqn55j_M.js",
+      "bytes": 282667,
+      "sha256": "f3f430202e85d9ca9ee86fceebe347c9c84deed6a467ceb3089a9ec3f09dd522"
+    },
+    {
+      "path": "backend/app/static/assets/ui-CaC60uvU.js",
+      "bytes": 1034607,
+      "sha256": "a7f3d3b83b72f7a91faa672863a507cf23c8e64b33e765800c2cfd184459bd78"
+    },
+    {
+      "path": "backend/app/static/brand/csg-logo.png",
+      "bytes": 5316,
+      "sha256": "572dff35addbff60a743d78ac9afce1ccbff8ba1ef732f1617ca88bc46ed8102"
+    },
+    {
+      "path": "backend/app/static/brand/huairou-logo.png",
+      "bytes": 19716,
+      "sha256": "9c5887f078f04df1ff96de4fd2bde3a14d9a0f865bfb0a62e85b00e497bf17e6"
+    },
+    {
+      "path": "backend/app/static/brand/pku-logo.png",
+      "bytes": 51388,
+      "sha256": "c6d6f12d827fcc3371095d7f4a40e5dddd96d951425ee7fc8015ff6a5b568eba"
+    },
+    {
+      "path": "backend/app/static/favicon.svg",
+      "bytes": 175,
+      "sha256": "84102eddf473cb52449dea224c7cef038cc4a0d0d47825d6f070eee3c08a8be3"
+    },
+    {
+      "path": "backend/app/static/index.html",
+      "bytes": 695,
+      "sha256": "cea68247eb654d0646d4ace0259b66f47048a4918740dcfd151187d02f056d78"
+    },
+    {
+      "path": "backend/app/static/maps/dali-counties.geojson",
+      "bytes": 90039,
+      "sha256": "a8302dd2eaed8ec54f33b86231627573be67bf5bee638afd59ad44261178eb53"
+    },
+    {
+      "path": "backend/app/storage/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "backend/app/storage/store.py",
+      "bytes": 7139,
+      "sha256": "dcb1323890d2863a2e1250cd3be65f21c3d9e6e401fe1cf96747943c46708267"
+    },
+    {
+      "path": "backend/app/testmode/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "backend/app/testmode/evaluator.py",
+      "bytes": 10679,
+      "sha256": "0e116ee53869f91fa8b892be119ed7df35884812a2c4d91310e507b9dd530672"
+    },
+    {
+      "path": "backend/tests/test_api.py",
+      "bytes": 7562,
+      "sha256": "1d92649c0bdba1543d91c6935140385c5b4987a3ca10f2d95f6ba7ab79afa99e"
+    },
+    {
+      "path": "backend/tests/test_boundaries.py",
+      "bytes": 10467,
+      "sha256": "2dae907c3b77356960b137689a744888f8c9ee31d40f76aa549645d87be6b57c"
+    },
+    {
+      "path": "backend/tests/test_data.py",
+      "bytes": 6627,
+      "sha256": "146e3b492a46a2dec03660806bb7f654718d9aecf90f4c314ff991090a9080d9"
+    },
+    {
+      "path": "backend/tests/test_external_config.py",
+      "bytes": 5214,
+      "sha256": "dfbe9c58bb634e2a76b8d412cbcc8aae55475f7f9fb24028986880789b570297"
+    },
+    {
+      "path": "backend/tests/test_history.py",
+      "bytes": 3965,
+      "sha256": "90a82afb56a1ff9adbe86c0d49317d133f0770c5000dcfb1744329b61694d152"
+    },
+    {
+      "path": "backend/tests/test_metrics.py",
+      "bytes": 6242,
+      "sha256": "94a04c9ff9a4b19167756df7f31ea0b35f0e6c93909f286cde88bbd4e77c2baf"
+    },
+    {
+      "path": "backend/tests/test_modeling.py",
+      "bytes": 10541,
+      "sha256": "6723d6422098010ace1c020ab83fea76f255e22d7768223644ba855e533ab21d"
+    },
+    {
+      "path": "backend/tests/test_teacher_alignment.py",
+      "bytes": 11157,
+      "sha256": "27ca467c4d0f214be21a8eccf01f4a99fda53114116723c5be1c4f7ba91128ec"
+    },
+    {
+      "path": "backend/tests/test_workspace_v4.py",
+      "bytes": 12800,
+      "sha256": "b38f0860d3e67721ccab7406515d7d5fd30ab06490fa21a304ae724459c3b1c2"
+    },
+    {
+      "path": "config/app.yaml",
+      "bytes": 668,
+      "sha256": "62ea1cf4d926987573586874ae386ba6247ba36fa68dab9bc7a4918df25ace9b"
+    },
+    {
+      "path": "config/features.json",
+      "bytes": 9131,
+      "sha256": "d4c3db32f10c755a80a2440a75a78caaef09858b30440cc6488735d2272a5c78"
+    },
+    {
+      "path": "config/knowledge.yaml",
+      "bytes": 1279,
+      "sha256": "747979631d39b9a515bbe9eb89671abd7b2fc53026423c900a98d4e457722824"
+    },
+    {
+      "path": "config/operators.yaml",
+      "bytes": 5503,
+      "sha256": "69b29028386e3ae914cc283cf247067bc2ff7bd6e1f875f74a05950c7e398545"
+    },
+    {
+      "path": "data/905节点计算.zip",
+      "bytes": 77954719,
+      "sha256": "d11360489035fae12140b080c116fdff9a086b8398fde54a19287d117b13184c"
+    },
+    {
+      "path": "data/history_905/e2_rolling.json",
+      "bytes": 1131560,
+      "sha256": "f5b6250667fde160d24ee536b812146edc45bf5e146355f858eb9c897127de3e"
+    },
+    {
+      "path": "data/history_905/source-e2.zip",
+      "bytes": 3299805,
+      "sha256": "ccdab332f510cdfb8b66eeaa062719c6c3a59426c4d1e1f84af89c5ee50b6d5d"
+    },
+    {
+      "path": "data/history_905/source_manifest.json",
+      "bytes": 18673,
+      "sha256": "4cfd945350a9ae67ee4041b108bcac9d4c5a3f200c183617cf70751d7ccf3770"
+    },
+    {
+      "path": "data/name_registry.csv",
+      "bytes": 28,
+      "sha256": "b945c74698e6029330886bbfdbd5268e879f11f7b749bf1c6d0ec8e7df044fac"
+    },
+    {
+      "path": "data/package-index.json",
+      "bytes": 582773,
+      "sha256": "e4e8a7d6e5824ae33e13f924b4fce8b7e16b63c4450eeb03a143efbbdfca0262"
+    },
+    {
+      "path": "data/snapshots/pasExp_20261004_153500_1.txt",
+      "bytes": 268861,
+      "sha256": "85f724d78dfed663da29127f0da1b1cab71ace41e72c6e6cf6acea697d08509c"
+    },
+    {
+      "path": "data/testsets/demo_cases.json",
+      "bytes": 4849,
+      "sha256": "c9329ac5786d2ca979d7aff12aa5b7e5a7c0c0893da27296adb6ce5206208278"
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "bytes": 3437,
+      "sha256": "8b4dd48cbc93ed935ef8cec5ccbd932d0668805cbbf14d65a6ad135738dbe2b4"
+    },
+    {
+      "path": "docs/requirements/task-checklist-20261114.md",
+      "bytes": 20203,
+      "sha256": "29df5639332f8868bbcd539d7116083aae6fab83294541fa173e559c59af7736"
+    },
+    {
+      "path": "docs/validation/frontend-v4.json",
+      "bytes": 2432,
+      "sha256": "98b7a16aaafe3b96d2ffe5b04e47bf394b4475079e4c46502b0b2b2f8b7c0c65"
+    },
+    {
+      "path": "docs/功能清单.md",
+      "bytes": 5465,
+      "sha256": "45a9d511967ffd41e36e3b848edcc72d3277a71a866ebd602319e0654848804d"
+    },
+    {
+      "path": "docs/接口接入.md",
+      "bytes": 4996,
+      "sha256": "ebae645798c40c05bfe4954730e249cef0555e3e3d8ab3912bdd412a1fa54f65"
+    },
+    {
+      "path": "docs/操作指南.md",
+      "bytes": 5910,
+      "sha256": "23acc0f3b595cfa4880f77c8cbe40484b577a73c9f187dc7071905eebf7f7f74"
+    },
+    {
+      "path": "frontend/index.html",
+      "bytes": 376,
+      "sha256": "ad1b8fd487768a5480a3ae1a951d9f4dc5bfef09a9f7bdaae8989c2862a692ee"
+    },
+    {
+      "path": "frontend/package-lock.json",
+      "bytes": 73494,
+      "sha256": "1c06230c3c5034bf734a3eb51028bfb86b2ad1d7246cab653e7801c3d437c409"
+    },
+    {
+      "path": "frontend/package.json",
+      "bytes": 789,
+      "sha256": "04f763b55aa6113f544a6d69a55fba7d22cd80f8a76faf3f9ecb2c7e8e4ca514"
+    },
+    {
+      "path": "frontend/public/brand/csg-logo.png",
+      "bytes": 5316,
+      "sha256": "572dff35addbff60a743d78ac9afce1ccbff8ba1ef732f1617ca88bc46ed8102"
+    },
+    {
+      "path": "frontend/public/brand/huairou-logo.png",
+      "bytes": 19716,
+      "sha256": "9c5887f078f04df1ff96de4fd2bde3a14d9a0f865bfb0a62e85b00e497bf17e6"
+    },
+    {
+      "path": "frontend/public/brand/pku-logo.png",
+      "bytes": 51388,
+      "sha256": "c6d6f12d827fcc3371095d7f4a40e5dddd96d951425ee7fc8015ff6a5b568eba"
+    },
+    {
+      "path": "frontend/public/favicon.svg",
+      "bytes": 175,
+      "sha256": "84102eddf473cb52449dea224c7cef038cc4a0d0d47825d6f070eee3c08a8be3"
+    },
+    {
+      "path": "frontend/public/maps/dali-counties.geojson",
+      "bytes": 90039,
+      "sha256": "a8302dd2eaed8ec54f33b86231627573be67bf5bee638afd59ad44261178eb53"
+    },
+    {
+      "path": "frontend/scripts/generate-types.mjs",
+      "bytes": 717,
+      "sha256": "430dd06414e451a769d801b78bd3ae2dbdc96cc68a5f3f0c5e329e476e11bc7a"
+    },
+    {
+      "path": "frontend/src/App.vue",
+      "bytes": 6073,
+      "sha256": "08c2ff15133ccd7e6bb7597f60e5719d9dc91a7db4f8f5214cff8a1a3360fc0e"
+    },
+    {
+      "path": "frontend/src/api/client.ts",
+      "bytes": 1237,
+      "sha256": "9fb056853c91713b31de67688d28828cc9ba9c95144938cb0f434a9ee1812152"
+    },
+    {
+      "path": "frontend/src/components/ChatQuestions.vue",
+      "bytes": 3818,
+      "sha256": "da85d2822d1b30513e0a96f5a7541b0f6154a08c8bc97457eb4d0230a02a9f5d"
+    },
+    {
+      "path": "frontend/src/components/CheckPanel.vue",
+      "bytes": 3876,
+      "sha256": "ee548167e61943bb1827f42cce80fa4ae6fea0bdfc915d2d263236c929774555"
+    },
+    {
+      "path": "frontend/src/components/CodePanel.vue",
+      "bytes": 2586,
+      "sha256": "cad1fae09c003310ddbccaac7ff06dcc10709452df3818fd648d3b52c548f53b"
+    },
+    {
+      "path": "frontend/src/components/CollaborationStrip.vue",
+      "bytes": 1349,
+      "sha256": "2a325f8144b2f974819d13fd7cad1d5b26cf3ab115f4ee2c0d69ab4854740f2e"
+    },
+    {
+      "path": "frontend/src/components/ConditionChecklist.vue",
+      "bytes": 1596,
+      "sha256": "0b7588e0c3e3d4fb75af1b2a6d414762b3299059c657f73672db6cc4f3fa5c6f"
+    },
+    {
+      "path": "frontend/src/components/DaliMap.vue",
+      "bytes": 12673,
+      "sha256": "fc50473c8a498fbffdc17debe68b0f4cbf0456d2074b2aa82cd5a300755d6dcf"
+    },
+    {
+      "path": "frontend/src/components/DataSummary.vue",
+      "bytes": 2138,
+      "sha256": "16f3781f62e27b9a874dcd0c9bf355627eab3419ddb844a842040aa2b09130ee"
+    },
+    {
+      "path": "frontend/src/components/DynamicModelPanel.vue",
+      "bytes": 7652,
+      "sha256": "56ddcc32a53ff028e9d81c011d0710b62c6c167cf1a62509e58bc8167948ed71"
+    },
+    {
+      "path": "frontend/src/components/EChart.vue",
+      "bytes": 948,
+      "sha256": "0679a0d234e5ef3e969e47d6560f32bc9dedc589f7b429b651317833c12fa2df"
+    },
+    {
+      "path": "frontend/src/components/FormulaPanel.vue",
+      "bytes": 3636,
+      "sha256": "d56038c263b737aee1c79fe18352870d834825b37339be37880b316963f82d96"
+    },
+    {
+      "path": "frontend/src/components/GridScene.vue",
+      "bytes": 6424,
+      "sha256": "8d1c23f16fc1efd5108bf73c6d330e41fb25130026ae6a8a645e1385f231536b"
+    },
+    {
+      "path": "frontend/src/components/LevelPanel.vue",
+      "bytes": 4405,
+      "sha256": "b48233e565bf70e73072bbab0613d4cb07218cc443f1664bc8c933c84e0c2c44"
+    },
+    {
+      "path": "frontend/src/components/ModelComparison.vue",
+      "bytes": 2916,
+      "sha256": "9a3f83179b2a8c542d114a73bda1203dd1604d64a68e9f5280c02a9806916096"
+    },
+    {
+      "path": "frontend/src/components/ResultsPanel.vue",
+      "bytes": 11566,
+      "sha256": "afb8a45da184758b47f452857e4394ce4c9c95d09f6d6e2eed9dffad907f5245"
+    },
+    {
+      "path": "frontend/src/components/RiskPanel.vue",
+      "bytes": 4979,
+      "sha256": "238f4422a1bbcd182148fdec01c9d05c2521d7c323a1658893d894286955c322"
+    },
+    {
+      "path": "frontend/src/components/SolverPanel.vue",
+      "bytes": 5685,
+      "sha256": "5b12aaab9f0d298ffa4409e8c71d8731e5682bb300658f3aed9cd1a16cc7b435"
+    },
+    {
+      "path": "frontend/src/components/SpecEditor.vue",
+      "bytes": 9570,
+      "sha256": "e8674fe1fdbf87dd1e5f54cf93130c0007c74cdcf26a3690d6ea58c98c60882b"
+    },
+    {
+      "path": "frontend/src/components/StatusBadge.vue",
+      "bytes": 479,
+      "sha256": "a9fa79fec26dcd3cf5445b7a08896dbd0455bfad0ad9c7477c371ca4f0a4d6f8"
+    },
+    {
+      "path": "frontend/src/components/UiIcon.vue",
+      "bytes": 1304,
+      "sha256": "9a8ffda6bc255885d13783d144d0817eb5badb32a46cbefc4270f619d39c9532"
+    },
+    {
+      "path": "frontend/src/components/VersionBar.vue",
+      "bytes": 2909,
+      "sha256": "b529ae7913b0e3c399cc1deb40fc59ff3435d96cb79d0df6755bbde9056e10eb"
+    },
+    {
+      "path": "frontend/src/features.ts",
+      "bytes": 970,
+      "sha256": "4d4d0efa38ae0dbdf76b35d7c966749de5d69bf9e8dac6cd1af485818fd32995"
+    },
+    {
+      "path": "frontend/src/main.ts",
+      "bytes": 651,
+      "sha256": "097cdb2ea87adc5a094b5d1015d2b2bc5c89053768b0660832fa96129f22626d"
+    },
+    {
+      "path": "frontend/src/router.ts",
+      "bytes": 791,
+      "sha256": "61914af035b778ca1e455ff6254cdab2533e5a2dffb87e557f838a3f8a0f1a3a"
+    },
+    {
+      "path": "frontend/src/stores/workbench.ts",
+      "bytes": 10332,
+      "sha256": "305375550833ed0cfebde6c40811de799456ea2302d026d6366eec820a615187"
+    },
+    {
+      "path": "frontend/src/styles/app.css",
+      "bytes": 17572,
+      "sha256": "35cc3af6e7065c586aa2a3edb3653428df323f18c9b54fe43a380044b8c377c8"
+    },
+    {
+      "path": "frontend/src/styles/history.css",
+      "bytes": 11851,
+      "sha256": "70abcc717f82cd760bb21cb0f2284ac380b6bb4457acf8bd69d6cf34c953bafc"
+    },
+    {
+      "path": "frontend/src/styles/refresh.css",
+      "bytes": 12044,
+      "sha256": "266830d813dc99ffd66574c02f6dcc54bd975f3c70e234a0dd6945714e6b0b4f"
+    },
+    {
+      "path": "frontend/src/styles/research.css",
+      "bytes": 10251,
+      "sha256": "de1ee41c6735a9da850a8c130691aec0859fabb541e39b88e5154851d4281908"
+    },
+    {
+      "path": "frontend/src/styles/tokens.css",
+      "bytes": 2058,
+      "sha256": "1e002a5799a9d0ede277f71b985b0bbbed944cd09358f216a252fef1435efe61"
+    },
+    {
+      "path": "frontend/src/styles/workbench-v3.css",
+      "bytes": 11508,
+      "sha256": "3fdca4ccd0dbacd3a9185ffca59fb5825d273e906578372f2bbc5b262b2b5ea0"
+    },
+    {
+      "path": "frontend/src/styles/workbench-v4.css",
+      "bytes": 8019,
+      "sha256": "0164e7cb43768044c0a5da441373b43816ce9a9417f76a081cf0a12803f6593e"
+    },
+    {
+      "path": "frontend/src/styles/workbench.css",
+      "bytes": 18394,
+      "sha256": "359a9ebd6d29265707f87d9a05a0e8c5a0fc904f9eed93198cf5c94c8d876ee4"
+    },
+    {
+      "path": "frontend/src/types/generated.ts",
+      "bytes": 3872,
+      "sha256": "7167e6c3487ee52f229c05b31b5b89e0ddffd688dfac5d732fc644343e41d2d3"
+    },
+    {
+      "path": "frontend/src/views/DataView.vue",
+      "bytes": 7010,
+      "sha256": "43a84a3bbe3260c02674f8bcdde4bd522dc33748d443d5fa213191c15d3a19d2"
+    },
+    {
+      "path": "frontend/src/views/DecompositionView.vue",
+      "bytes": 4195,
+      "sha256": "c11c438e1a7828fe5a5565a34acc82175ce50a59d02c6d27619a6d709b5df64d"
+    },
+    {
+      "path": "frontend/src/views/EvaluationView.vue",
+      "bytes": 5963,
+      "sha256": "e2c237f56414eb6a74adbbc8ba23707d5f313fab26c30ba85377ef4eb1baff08"
+    },
+    {
+      "path": "frontend/src/views/FeaturesView.vue",
+      "bytes": 1915,
+      "sha256": "23fa40deb890d2d393eb55c41f05fc6f1b07118c8706aa212ba8000661f1ab94"
+    },
+    {
+      "path": "frontend/src/views/HistoryView.vue",
+      "bytes": 19277,
+      "sha256": "10bd8f261777a2639238b71faab8e6ed29b90c3e702f1a7e88bbe0f64163e68f"
+    },
+    {
+      "path": "frontend/src/views/WorkbenchView.vue",
+      "bytes": 11513,
+      "sha256": "7688dd8453758820ccf712243dad4ba283abd98e4b7e611279ab232549822ab4"
+    },
+    {
+      "path": "frontend/tests/workspace-v4.e2e.mjs",
+      "bytes": 11738,
+      "sha256": "4dd06d80158bdd9c058e7bb47cfb59b8d97e8139ce7bd2e72147b27e6c55ed52"
+    },
+    {
+      "path": "frontend/tsconfig.json",
+      "bytes": 496,
+      "sha256": "534b48eaff2c7d9c6a81ed6302ffd0c67f395c4354d28555e562917f7d728d97"
+    },
+    {
+      "path": "frontend/vite.config.ts",
+      "bytes": 363,
+      "sha256": "d2f7162d327261835d46940a841a0283f098d455789f7231da1223043ea5cbb9"
+    },
+    {
+      "path": "pytest.ini",
+      "bytes": 70,
+      "sha256": "dc6437dc190db03ef194cdd3ded987140211cc5cfd12d01b014156ca86b61887"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 260,
+      "sha256": "18afd64504abea203eb246905bb248f798cd6a2b6216a1bcd303979fd938cc77"
+    },
+    {
+      "path": "run-demo.cmd",
+      "bytes": 681,
+      "sha256": "4602bcd59911d20c99fd0df033198ac3bedd39afcbcb24bcb7018172be28835d"
+    },
+    {
+      "path": "run.py",
+      "bytes": 780,
+      "sha256": "908213913b00a2645cb397b3f9fdff538cb90e83647d44407416a84237837620"
+    },
+    {
+      "path": "scripts/demo_walkthrough.py",
+      "bytes": 22192,
+      "sha256": "753e9a4447c6b50da43617b905e481ed3d81e1b51c7a688b0f692af8cda3b876"
+    },
+    {
+      "path": "scripts/package_v4.py",
+      "bytes": 3948,
+      "sha256": "39d97b6fc46b80d1ad48f9afb2633a7e1e6c27f3cc812e8d53b36390b42664d9"
+    },
+    {
+      "path": "scripts/test_browser_v4.py",
+      "bytes": 1875,
+      "sha256": "ae76ee135347e37665d06300878760edb7f5d951ce13e49284780c6f8cb7effe"
+    },
+    {
+      "path": "start-workbench.cmd",
+      "bytes": 557,
+      "sha256": "c806d3863fa830f7a3492e87024aacf3d277c9a486d1ab70f4b1b4cc4abb5236"
+    }
+  ]
+}

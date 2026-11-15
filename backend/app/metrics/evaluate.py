@@ -172,7 +172,7 @@ def screen_n1(grid: dict, contingency_rule="meshed_in_service", *,
     base = {"method": "直流 PTDF/LODF 近似筛查，非交流 N−1 校核", "contingency_rule": contingency_rule,
             "passed": 0, "evaluated": 0, "failed": 0, "pass_rate": None, "islanding_count": 0,
             "islanding_mw": 0.0, "islanding": [], "details": [], "unsupported_count": 0,
-            "flow_basis": "合成演示断面 PF" if flow is None else "导入结果 PF"}
+            "flow_basis": "真实断面 PF" if flow is None else "导入结果 PF"}
     try:
         factors = _lodf_data(grid, states)
     except (ValueError, RuntimeError) as exc:
@@ -337,9 +337,9 @@ def evaluate(spec: dict, result: dict | None, grid: dict) -> dict:
     else:
         risk_basis, risk_n1 = before, n1
         risk = _local_risk(before, n1)
-        risk["basis"] = "调整前合成演示断面"
+        risk["basis"] = "调整前真实断面"
         if after:
-            risk["reasons"].append("调整后数据不完整，风险等级仍基于调整前合成演示断面")
+            risk["reasons"].append("调整后数据不完整，风险等级仍基于调整前真实断面")
     endpoint = os.getenv("RISK_ENDPOINT", "").strip()
     if endpoint:
         payload = {"task_id": spec.get("task_id"), "version": spec.get("version"),
@@ -360,7 +360,7 @@ def evaluate(spec: dict, result: dict | None, grid: dict) -> dict:
             risk["integration_error"] = type(exc).__name__
     return {"before": before, "after": after, "n1": n1, "risk": risk,
             "suggestions": _suggestions(risk_basis, risk_n1),
-            "basis": {"before": "合成演示断面 PF/QF/PT/QT/VM", "after": "—（黑盒占位，未调用求解器）" if not valid_result else "导入或外部结果",
+            "basis": {"before": "真实断面 PF/QF/PT/QT/VM", "after": "—（黑盒占位，未调用求解器）" if not valid_result else "导入或外部结果",
                       "single_snapshot": spec.get("snapshot", {}).get("single_snapshot", True),
                       "static_voltage_margin": "待开发：需要连续潮流",
                       "renewable_utilization": "暂不计算：没有新能源机组信息",
