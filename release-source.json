@@ -1,0 +1,9 @@
+{
+  "version": "4.0.0",
+  "source_archive": "运行方式智能调整平台B-v4.0.zip",
+  "source_archive_sha256": "620a923bcbd58c8cd5958e22cdad6b3ae685b22173aed571a234d6e54ff782be",
+  "source_archive_bytes": 83969496,
+  "verified_date": "2026-11-15",
+  "publication": "Source code and synthetic demo only; private data and original archives excluded.",
+  "source_comparison": "Application source matches the supplied v4.0 archive except public-demo privacy guards, synthetic labels, and the G12 example."
+}
