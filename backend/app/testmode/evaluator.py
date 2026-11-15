@@ -35,6 +35,8 @@ def parse_upload(raw, filename):
     if filename.lower().endswith(".csv"):
         cases = list(csv.DictReader(io.StringIO(text)))
         for c in cases:
+            for key in ('expected','expected_spec','expected_level','level','delta_pi','structural','must_fail','expected_codes','expected_errors'):
+                if c.get(key)=='':c.pop(key,None)
             for k in ("expected", "expected_spec", "delta_pi", "structural", "must_fail"):
                 if c.get(k):
                     try:
@@ -92,9 +94,17 @@ def run_cases(cases, grid, engine="demo"):
     results=[]
     totals=defaultdict(lambda:{"total":0,"passed":0})
     tp=predicted=reference=hallucinations=0
+    delta_scored=0
     for case in cases:
         started=time.perf_counter()
         expected=expectation(case)
+        ref=case.get('expected_spec') or case.get('expected') or {}
+        ref=ref if isinstance(ref,dict) else {}
+        delta_labeled='delta_pi' in ref or 'delta_pi' in case
+        structure_labeled='structural' in ref or 'structural' in case
+        level_labeled=bool(case.get('expected_level') or case.get('level') or ref.get('level'))
+        labeled=delta_labeled or structure_labeled or level_labeled or 'must_fail' in case or 'must_fail' in ref or bool(case.get('expected_codes') or case.get('expected_errors') or ref.get('codes') or ref.get('finding_codes') or case.get('questions'))
+        delta_scored+=int(delta_labeled)
         try:
             parsed=parse_instruction(case["instruction"],grid, "test-"+str(case["id"]), engine=engine)
             spec=parsed["spec"]
@@ -105,15 +115,16 @@ def run_cases(cases, grid, engine="demo"):
             actual_delta=spec.get("delta_pi",[])
             wanted=expected["delta_pi"]
             hit=matched_count(actual_delta,wanted,lambda a,b:delta_match(a,b,spec["omega"]["periods"]))
-            tp+=hit; predicted+=len(actual_delta); reference+=len(wanted)
+            if delta_labeled:
+                tp+=hit; predicted+=len(actual_delta); reference+=len(wanted)
             structure=spec.get("structural",[])
             sh=matched_count(structure,expected["structural"],lambda a,b:a.get("op_id")==b.get("op_id") and same_value(a.get("params",{}),b.get("params",{})))
             errors=[]
-            if actual_level!=expected["level"]:
+            if level_labeled and actual_level!=expected["level"]:
                 errors.append(f"层级期望{expected['level']}，实际{actual_level}")
-            if hit!=len(wanted) or len(actual_delta)!=len(wanted):
+            if delta_labeled and (hit!=len(wanted) or len(actual_delta)!=len(wanted)):
                 errors.append("参数修改与参考规格不一致")
-            if sh!=len(expected["structural"]) or len(structure)!=len(expected["structural"]):
+            if structure_labeled and (sh!=len(expected["structural"]) or len(structure)!=len(expected["structural"])):
                 errors.append("结构修改与参考规格不一致")
             must=expected["must_fail"]
             required=list(expected["codes"])+list(case.get("expected_errors",[]))
@@ -141,19 +152,24 @@ def run_cases(cases, grid, engine="demo"):
         except Exception as exc:
             result={"id":case["id"],"instruction":case["instruction"],"expected_level":expected["level"],
                     "actual_level":"错误","passed":False,"errors":[str(exc)],"parse":None,"check":None}
+        result['evaluation_status']='scored' if labeled else 'unlabeled'
+        if not labeled:
+            result['passed']=None;result['expected_level']='未标注'
         result["elapsed_ms"]=round((time.perf_counter()-started)*1000,2)
-        totals[str(expected["level"])]["total"]+=1
-        totals[str(expected["level"])]["passed"]+=int(result["passed"])
+        if labeled:
+            key=str(expected['level']) if level_labeled else str(result['actual_level'])
+            totals[key]['total']+=1;totals[key]['passed']+=int(result['passed'])
         results.append(result)
-    passed=sum(r["passed"] for r in results)
-    return {"basis":"规格级比对；非ProOPF目标值比对，不代表真实求解或物理校核",
-            "total":len(results),"passed":passed,"accuracy":passed/len(results) if results else 0,
+    passed=sum(r['passed'] is True for r in results);scored=sum(r['evaluation_status']=='scored' for r in results)
+    return {"basis":"规格级比对；未标注用例不计入准确率",
+            "total":len(results),"scored":scored,"unlabeled":len(results)-scored,"passed":passed,"accuracy":passed/scored if scored else None,
             "by_level":[{"level":k,**v,"accuracy":v["passed"]/v["total"]} for k,v in totals.items()],
-            "precision":tp/predicted if predicted else (1 if not reference else 0),
-            "recall":tp/reference if reference else 1,"hallucinations":hallucinations,
+            "precision":(tp/predicted if predicted else (1 if not reference else 0)) if delta_scored else None,
+            "recall":(tp/reference if reference else 1) if delta_scored else None,"hallucinations":hallucinations,
             "mean_ms":sum(r["elapsed_ms"] for r in results)/len(results) if results else 0,"cases":results}
 
 def export_report(report, fmt):
+    rate=lambda value: f'{value:.1%}' if value is not None else '—'
     if fmt=="csv":
         stream=io.StringIO()
         writer=csv.writer(stream)
@@ -162,11 +178,11 @@ def export_report(report, fmt):
             writer.writerow([c["id"],c["instruction"],c["expected_level"],c["actual_level"],c["passed"],c["elapsed_ms"],"；".join(c["errors"])])
         return "\ufeff"+stream.getvalue()
     lines=["# 建模工作台规格级测评报告","",report["basis"],"",
-           f"通过 {report['passed']} / {report['total']}，准确率 {report['accuracy']:.1%}。",
-           f"Δπ精确率 {report['precision']:.1%}，召回率 {report['recall']:.1%}，疑似幻觉记录 {report['hallucinations']}，平均耗时 {report['mean_ms']:.1f} ms。","",
-           "疑似幻觉计数包含用于负例测试的E101，不能作为引擎真实部署错误率。","",
+           f"通过 {report['passed']} / {report.get('scored',report['total'])} 个已标注用例，准确率 {rate(report['accuracy'])}。", 
+           f"Δπ精确率 {rate(report['precision'])}，召回率 {rate(report['recall'])}，疑似幻觉记录 {report['hallucinations']}，平均耗时 {report['mean_ms']:.1f} ms。","",
+           f"未标注用例：{report.get('unlabeled',0)} 条。疑似幻觉项：W501、E101。","",
            "|层级|通过|总数|准确率|","|---|---:|---:|---:|"]
     lines += [f"|{x['level']}|{x['passed']}|{x['total']}|{x['accuracy']:.1%}|" for x in report["by_level"]]
     lines += ["","|用例|程序层级|通过|耗时ms|说明|","|---|---|---|---:|---|"]
-    lines += [f"|{c['id']}|{c['actual_level']}|{'是' if c['passed'] else '否'}|{c['elapsed_ms']}|{'；'.join(c['errors']) or '符合参考规格'}|" for c in report["cases"]]
+    lines += [f"|{c['id']}|{c['actual_level']}|{'未标注' if c['passed'] is None else '是' if c['passed'] else '否'}|{c['elapsed_ms']}|{'未提供参考规格' if c['passed'] is None else '；'.join(c['errors']) or '符合参考规格'}|" for c in report["cases"]]
     return "\n".join(lines)

@@ -1,0 +1,31 @@
+<script setup lang="ts">
+import {computed,onMounted,ref,watch} from 'vue';
+import * as echarts from 'echarts';
+import EChart from './EChart.vue';
+import {api,fmt} from '../api/client';
+const props=withDefaults(defineProps<{snapshotId?:string;result?:any;baseline?:any;period?:number;compact?:boolean}>(),{period:1,compact:false});
+const topology=ref<any>({nodes:[],links:[]}),coordinates=ref<any[]>([]),ready=ref(false),error=ref(''),view=ref('split'),search=ref(''),selected=ref<any>(null),mesh=ref(false);
+let request=0;
+const at=(v:any)=>Array.isArray(v)?v[props.period-1]:v;
+const hasResult=computed(()=>props.result&&(['optimal','feasible'].includes(props.result.status)||props.result.kind==='historical_replay'));
+const statuses=computed(()=>props.result?.branch_status||{});
+function status(l:any){return hasResult.value?at(statuses.value[l.id])??l.BR_STATUS:l.BR_STATUS;}
+function voltage(n:any){return hasResult.value?at(props.result?.bus_vm?.[n.id]):at(props.baseline?.bus_vm?.[n.id])??n.VM;}
+function loading(l:any){if(!hasResult.value)return l.loading;const f=props.result?.branch_flow?.[l.id];if(!f||!l.RATE_A)return null;return Math.max(Math.hypot(at(f.pf),at(f.qf)),Math.hypot(at(f.pt),at(f.qt)))/l.RATE_A;}
+const color=(l:any)=>status(l)===0?'#8a8886':loading(l)===null?'#c4c1bc':loading(l)>=1?'#c9463d':loading(l)>=.8?'#d59635':'#5c8773';
+const links=computed(()=>topology.value.links.filter((l:any)=>!mesh.value||!l.is_bridge));
+const busColor=(n:any)=>voltage(n)==null?'#c4c1bc':voltage(n)>n.VMAX||voltage(n)<n.VMIN?'#be4943':n.kv>=220?'#8d171b':'#5c8773';
+const graph=computed(()=>({animation:false,tooltip:{trigger:'item',confine:true,formatter:(p:any)=>p.dataType==='edge'?`${p.data.id} · ${p.data.source}—${p.data.target}<br/>${status(p.data)===0?'停运':'在运'}`:`${p.data.id} · ${p.data.kv} kV<br/>电压 ${fmt(voltage(p.data),4)} p.u.`},series:[{type:'graph',layout:'none',roam:true,data:topology.value.nodes.map((n:any)=>({...n,name:n.id,symbolSize:n.id===search.value?11:n.kv>=220?7:4,itemStyle:{color:busColor(n)},label:{show:n.id===search.value,position:'right'}})),links:links.value.map((l:any)=>({...l,lineStyle:{color:color(l),type:status(l)===0?'dashed':'solid',width:l.id===search.value?4:l.is_bridge?.7:1.4,opacity:l.id===search.value?1:.65}})),emphasis:{focus:'adjacency'}}]}));
+const coordinateMap=computed(()=>Object.fromEntries(coordinates.value.map(x=>[x.bus_id,[x.longitude,x.latitude]])));
+const geographic=computed(()=>({animation:false,tooltip:{trigger:'item',confine:true},geo:{map:'platform-dali',roam:true,layoutCenter:['50%','50%'],layoutSize:'90%',label:{show:!coordinates.value.length,fontSize:10,color:'#6a726d'},itemStyle:{areaColor:'#e3e9e1',borderColor:'#fff',borderWidth:1.2},emphasis:{itemStyle:{areaColor:'#d2b4b0'}}},series:[{type:'lines',coordinateSystem:'geo',data:links.value.filter((l:any)=>coordinateMap.value[l.source]&&coordinateMap.value[l.target]).map((l:any)=>({name:l.id,coords:[coordinateMap.value[l.source],coordinateMap.value[l.target]],lineStyle:{color:color(l),type:status(l)===0?'dashed':'solid',width:l.id===search.value?4:1.3}}))},{type:'scatter',coordinateSystem:'geo',data:topology.value.nodes.filter((n:any)=>coordinateMap.value[n.id]).map((n:any)=>({name:n.id,value:coordinateMap.value[n.id],itemStyle:{color:busColor(n)},symbolSize:n.id===search.value?12:5})),label:{show:false},tooltip:{formatter:(p:any)=>p.name}}]}));
+function locate(){search.value=search.value.trim().toUpperCase();selected.value=topology.value.nodes.find((n:any)=>n.id===search.value)||topology.value.links.find((l:any)=>l.id===search.value)||{id:search.value,missing:true};}
+async function load(){const current=++request;ready.value=false;error.value='';try{const query=props.snapshotId?'?snapshot_id='+encodeURIComponent(props.snapshotId):'';const [t,c,map]=await Promise.all([api('/topology'+query),api('/coordinates'+query),fetch('/maps/dali-counties.geojson').then(r=>{if(!r.ok)throw new Error('地图未载入');return r.json()})]);if(current!==request)return;echarts.registerMap('platform-dali',map);topology.value=t;coordinates.value=c.items||[];ready.value=true;}catch(e:any){if(current===request)error.value=e.message;}}
+onMounted(load);watch(()=>props.snapshotId,load);
+</script>
+<template><section class="grid-scene" data-testid="grid-scene"><div class="scene-toolbar"><el-radio-group v-model="view" size="small"><el-radio-button value="split">地图与网架</el-radio-button><el-radio-button value="geography">地理地图</el-radio-button><el-radio-button value="network">电气网架</el-radio-button></el-radio-group><div class="scene-search"><el-input v-model="search" placeholder="B43 / L151" size="small" @keyup.enter="locate"/><el-button size="small" @click="locate">定位</el-button></div></div>
+ <div v-if="error" class="notice amber">{{error}} <el-button text @click="load">重试</el-button></div>
+ <div v-else-if="ready" class="scene-views" :class="{split:view==='split'}"><section v-if="view!=='network'"><div class="scene-caption"><strong>大理行政区地图</strong><span>{{coordinates.length?coordinates.length+' / 905 已定位':'设备坐标待接入'}}</span></div><EChart :option="geographic" :height="compact?'310px':'480px'"/></section><section v-if="view!=='geography'"><div class="scene-caption"><strong>{{topology.nodes.length}} 节点 · {{links.length}} 支路</strong><span>电气布局</span><el-switch v-model="mesh" active-text="网状部分" size="small"/></div><EChart :option="graph" :height="compact?'310px':'480px'" @select="p=>{selected=p.data;search=p.data.id||p.name}"/></section></div>
+ <div v-else class="inline-empty">正在载入地图与网架…</div>
+ <div class="scene-legend"><span><i class="normal"></i>在运</span><span><i class="heavy"></i>重载</span><span><i class="violation"></i>原断面限值越限</span><span><i class="off"></i>停运</span><RouterLink to="/data?tab=coordinates">导入设备坐标 ↗</RouterLink></div>
+ <div v-if="selected" class="scene-selected"><strong>{{selected.id}}</strong><span v-if="selected.missing">未找到该编号</span><template v-else><span>{{selected.kv}} kV</span><span v-if="selected.source">{{selected.source}} — {{selected.target}} · {{status(selected)===0?'停运':'在运'}}</span><span v-else>电压 {{fmt(voltage(selected),4)}} p.u.</span></template><el-button text @click="selected=null">关闭</el-button></div>
+</section></template>

@@ -7,6 +7,7 @@ import httpx
 from pydantic import BaseModel, Field, ValidationError, ConfigDict
 from app.spec.models import ModelSpec, DeltaPi, StructuralOp, BaseModelDef, WHITELIST, load_config, derived_level
 from app.modeling.problem import detect_problem, apply_problem_choice
+from app.modeling.dynamic import parse_dynamic
 
 class ModelingEngine(Protocol):
     def parse(self, instruction: str, ctx: dict) -> dict: ...
@@ -43,6 +44,13 @@ def _periods(text, snapshot):
         except (ValueError,KeyError): return [],True
     if re.search(r"全天|所有时段|全部时段|每个时段|每时段",text): return [],False
     return [],bool(re.search(r"午高峰|午后|晚上|近期|明天|早高峰|晚高峰|傍晚",text))
+
+def _target_periods(text, clause, start, snapshot, fallback):
+    explicit=r'(?:第\s*)?\d+\s*[-–—到至]\s*\d+\s*(?:个\s*)?时段|第\s*\d+\s*时段|全部时段|所有时段|每个时段|每时段|全天'
+    local=list(re.finditer(explicit,clause))
+    if local:return _periods(local[-1][0],snapshot)[0]
+    earlier=list(re.finditer(explicit,text[:start]))
+    return _periods(earlier[-1][0],snapshot)[0] if earlier else fallback.copy()
 
 def _number(text):
     m=re.search(r"(提高|提升|增加|上调|增长|降低|减少|下降|下调)\s*(\d+(?:\.\d+)?)\s*[%％]",text)
@@ -107,6 +115,8 @@ class DemoRuleEngine:
                 if re.search(r"电压上限|VMAX",clause,re.I):param="VMAX"
                 if re.search(r"电压下限|VMIN",clause,re.I):param="VMIN"
             if component=="gen" and re.search(r"出力下限|PMIN",clause,re.I):param="PMIN"
+            if component=="gen" and not re.search(r"上限|下限|PMIN|PMAX",clause,re.I) and re.search(r"出力|PG|QG",clause,re.I):
+                param="QG" if re.search(r"无功|QG",clause,re.I) else "PG"
             if component in ("branch","gen") and re.search(r"检修|停运|退出运行",clause):
                 param="BR_STATUS" if component=="branch" else "GEN_STATUS";operation,value="set",0
             source="explicit";direction=None;chain=None
@@ -115,15 +125,18 @@ class DemoRuleEngine:
                 if rule is None and component=="branch" and re.search(r"热稳.*下降|限额下降|能力下降",clause):rule=next(r for r in rules if r["id"]=="heat")
                 if rule is None:continue
                 param,direction,chain=rule["param"],rule["direction"],rule["chain"];source="inferred"
-            dp={"id":f"dp-{len(spec['delta_pi'])+1}","component":component,"target":target,"param":param,"operation":operation,"direction":direction,"value":value,"periods":periods.copy(),"source":source,"evidence":clause or instruction,"inference_chain":chain,"confirmed":source=="explicit"}
+            dp={"id":f"dp-{len(spec['delta_pi'])+1}","component":component,"target":target,"param":param,"operation":operation,"direction":direction,"value":value,"periods":_target_periods(instruction,clause,a,snapshot,periods),"source":source,"evidence":clause or instruction,"inference_chain":chain,"confirmed":source=="explicit"}
             spec["delta_pi"].append(dp)
             if source=="inferred":
                 default=rule.get("default_value")
                 _question(questions,"amplitude",f"{target}.{param} 调整幅度是多少？请手动输入比例或设定值。",[{"label":"手动输入","value":"manual"},{"label":"按规程默认值","value":"default","disabled":default is None,"description":"规程默认值未配置" if default is None else "采用已登记默认值"}],dp["id"],direction=direction,default_value=default)
         def operator(op_id,kind,params,evidence):
             spec["structural"].append({"id":f"s-{len(spec['structural'])+1}","kind":kind,"op_id":op_id,"params":params,"source":"explicit","evidence":evidence,"custom_code":None})
-        switch=re.search(r"(?:开关操作|开关动作|开关次数)[^，。；;]*?不超过\s*(\d+)\s*次",instruction)
-        if switch:operator("switching_limit_total" if re.search(r"全天|总共|总计|累计",instruction) else "switching_limit_per_period","constraint",{"k":int(switch[1])},switch[0])
+        switch=re.search(r"(?:开关操作|开关动作|开关次数|投切次数)[^，。；;]*?(?:不超过|最多|上限(?:为)?|设为|限制为)\s*(\d+)\s*次",instruction)
+        if switch:
+            per_period=bool(re.search(r'每(?:个)?时段|各时段',instruction))
+            total=not per_period and bool(re.search(r'全天|总共|总计|累计|总上限|次数总|总次数|窗口',instruction))
+            operator('switching_limit_total' if total else 'switching_limit_per_period','constraint',{'k':int(switch[1])},switch[0])
         if section:
             branches=[x[1] for x in targets if x[0]=="branch"]
             operator("section_limit","constraint",{"branches":branches,"limit_mw":float(section[1]),"direction":"forward"},instruction.strip("。"))
@@ -133,6 +146,7 @@ class DemoRuleEngine:
             operator("switching_penalty","objective",{"beta":None},evidence);warnings.append("开关惩罚系数未指定，将采用配置默认 beta；确认规格时请核对。")
         for token,op in [("网损","loss_min"),("电压偏差","voltage_deviation"),("电压质量","voltage_deviation")]:
             if token in instruction and not any(x["op_id"]==op for x in spec["structural"]):operator(op,"objective",{"beta":None},token)
+        parse_dynamic(spec, instruction)
         model_choice=detect_problem(instruction)
         if model_choice:
             spec["omega"]["problem"]=model_choice["problem"]
@@ -234,9 +248,10 @@ def _remote_result(payload,baseline,engine):
 class OpenAICompatEngine:
     def parse(self,instruction,ctx):
         tic=time.perf_counter();baseline=DemoRuleEngine().parse(instruction,ctx)
-        base=os.environ.get("LLM_BASE_URL","http://127.0.0.1:8001/v1").rstrip("/")
-        headers={"Content-Type":"application/json"}
-        if os.environ.get("LLM_API_KEY"):headers["Authorization"]="Bearer "+os.environ["LLM_API_KEY"]
+        provider=ctx.get('provider','openai');prefix='PROOPF' if provider=='proopf' else 'LLM'
+        base=os.environ.get(prefix+'_BASE_URL','http://127.0.0.1:8001/v1').rstrip('/')
+        headers={'Content-Type':'application/json'}
+        if os.environ.get(prefix+'_API_KEY'):headers['Authorization']='Bearer '+os.environ[prefix+'_API_KEY']
         examples=[]
         for text in ("第1–8时段，母线43有功负荷提高20%。","午高峰高温，220kV线路L155热稳限额下降，要求满足N−1，尽量少动开关。"):
             sample=DemoRuleEngine().parse(text,ctx)
@@ -246,11 +261,11 @@ class OpenAICompatEngine:
         for attempt in range(2):
             try:
                 with httpx.Client(timeout=20,trust_env=False) as client:
-                    r=client.post(base+"/chat/completions",headers=headers,json={"model":os.environ.get("LLM_MODEL","Qwen"),"messages":messages,"temperature":0,"response_format":{"type":"json_object"}})
+                    r=client.post(base+"/chat/completions",headers=headers,json={"model":os.environ.get(prefix+'_MODEL','Qwen'),"messages":messages,"temperature":0,"response_format":{"type":"json_object"}})
                     r.raise_for_status();raw=r.json()["choices"][0]["message"]["content"]
                 fence=chr(96)*3
                 cleaned=re.sub(r"^\s*"+fence+r"(?:json)?\s*|\s*"+fence+r"\s*$","",raw)
-                result=_remote_result(RemotePayload.model_validate_json(cleaned),baseline,"openai")
+                result=_remote_result(RemotePayload.model_validate_json(cleaned),baseline,provider)
                 result["elapsed_ms"]=round((time.perf_counter()-tic)*1000,3);return result
             except (httpx.HTTPError,KeyError,IndexError) as exc:
                 baseline["warnings"].append(f"本地大模型服务不可用（{type(exc).__name__}），已回落离线演示规则。")
@@ -266,21 +281,22 @@ class OpenAICompatEngine:
 
 class ExternalMethodEngine:
     def parse(self,instruction,ctx):
-        endpoint=os.environ.get("METHOD_ENDPOINT","").rstrip("/");baseline=DemoRuleEngine().parse(instruction,ctx)
+        provider=ctx.get('provider','external');key='TOPIC2_MODEL_ENDPOINT' if provider=='topic2' else 'METHOD_ENDPOINT'
+        endpoint=os.environ.get(key,'').rstrip('/');baseline=DemoRuleEngine().parse(instruction,ctx)
         if not endpoint:
             baseline["engine"]="demo_fallback";baseline["warnings"].append("铮昊方法接口未配置，已使用离线演示规则。");return baseline
         try:
             with httpx.Client(timeout=20,trust_env=False) as client:
                 r=client.post(endpoint+"/parse",json={"instruction":instruction,"snapshot_meta":ctx["grid"].get("meta",{}),"whitelist":WHITELIST,"operators":load_config("operators.yaml")["operators"]});r.raise_for_status()
-            return _remote_result(RemotePayload.model_validate(r.json()),baseline,"external")
+            return _remote_result(RemotePayload.model_validate(r.json()),baseline,provider)
         except (httpx.HTTPError,ValidationError,ValueError):
             baseline["engine"]="demo_fallback";baseline["warnings"].append("外部建模方法不可用，已回落演示规则。");return baseline
 
 def parse_instruction(instruction,grid,task_id,engine="demo",snapshot=None,problem=None):
     if not instruction.strip():raise ValueError("请输入调度指令")
-    selected={"demo":DemoRuleEngine,"openai":OpenAICompatEngine,"external":ExternalMethodEngine}.get(engine)
+    selected={"demo":DemoRuleEngine,"openai":OpenAICompatEngine,"qwen":OpenAICompatEngine,"proopf":OpenAICompatEngine,"external":ExternalMethodEngine,"topic2":ExternalMethodEngine}.get(engine)
     if selected is None:raise ValueError("未知建模引擎")
-    parsed=selected().parse(instruction,{"grid":grid,"task_id":task_id,"snapshot":snapshot})
+    parsed=selected().parse(instruction,{"grid":grid,"task_id":task_id,"snapshot":snapshot,"provider":engine})
     return apply_problem_choice(parsed,problem)
 
 def answer_parse(state,question_id,answer,grid):

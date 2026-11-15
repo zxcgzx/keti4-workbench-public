@@ -19,7 +19,7 @@ def _eligible_at(spec,grid,t,rule=None,apply_spec=True):
     if mode!="all_in_service":lines=[x for x in lines if x in frame.get("meshed",grid.get("meshed",[]))]
     if mode=="meshed_kv_ge_110":lines=[x for x in lines if branch_kv(frame,frame["branch"][x])>=110]
     if apply_spec:
-        forced={x["target"] for x in spec.get("delta_pi",[]) if x["component"]=="branch" and x["param"]=="BR_STATUS"}
+        forced={x["target"] for x in spec.get("delta_pi",[]) if x["component"]=="branch" and x["param"]=="BR_STATUS" and (not x.get('periods') or t in x['periods'])}
         lines=[x for x in lines if x not in forced]
         if omega.get("problem")=="multi_period_acopf":return []
     return lines
@@ -57,13 +57,25 @@ def estimate_size(spec,grid):
         if op["op_id"]=="switching_limit_per_period":c=periods
         elif op["op_id"]=="switching_limit_total":c=1
         elif op["op_id"]=="section_limit":c=periods*(2 if op.get("params",{}).get("direction")=="both" else 1)
+        elif op['op_id']=='generator_ramp':c=2*len(set(op.get('params',{}).get('generators') or list(grid['gen'])))*periods
+        elif op['op_id']=='renewable_curtailment':c=2*len(op.get('params',{}).get('availability') or {})*periods
         counts[op["id"]]=c
     continuous=(2*n+2*g+4*l)*periods+(s*periods if switching else 0)
     switching_counts={rule:sum(len(_eligible_at(spec,grid,t,rule,apply_spec=False)) for t in range(1,periods+1)) for rule in ("all_in_service","meshed_in_service","meshed_kv_ge_110")}
+    switch_binary=binary; unit_binary=0; event_binary=0
+    mode=spec.get('omega',{}).get('generator_mode','dispatch')
+    if mode=='commitment':
+        unit_binary=g*periods;event_binary=2*g*periods;binary+=unit_binary+event_binary
+        counts['unit_transition']=g*periods;counts['unit_exclusive']=g*periods
+        counts['unit_min_up']=g*periods;counts['unit_min_down']=g*periods
+        cfg=spec['omega'].get('commitment') or {};duration=cfg.get('initial_duration')
+        counts['unit_initial_hold']=sum(min(periods,max(0,int(cfg.get('min_up' if int(row['GEN_STATUS']) else 'min_down',1))-duration)) for row in grid['gen'].values()) if duration is not None else 0
+        counts['unit_maintenance']=len({(d['target'],t) for d in spec.get('delta_pi',[]) if d['component']=='gen' and d['param']=='GEN_STATUS' for t in range(1,periods+1) if not d.get('periods') or t in d['periods']})
+    counts['generation_targets']=(g*periods if mode=='fixed' else 0)+sum(sum(not d.get('periods') or t in d['periods'] for t in range(1,periods+1)) for d in spec.get('delta_pi',[]) if d['component']=='gen' and d['param'] in ('PG','QG'))
     custom=any(x.get("custom_code") for x in spec.get("structural",[]))
     return {"periods":periods,"binary":binary,"continuous":continuous,"variables":continuous+binary,"constraints":sum(counts.values()),
-            "switching_counts":switching_counts,"blocks":[{"id":k,"constraints":v} for k,v in counts.items()],
-            "custom_code_unestimated":custom,"n1_note":"以上为正常方式模板计数；B9 按事故集展开，由外部求解链决定。自定义代码不计入估算。",
+            "switching_counts":switching_counts,"integer_breakdown":{"branch_status":switch_binary,"unit_status":unit_binary,"startup_shutdown":event_binary},"blocks":[{"id":k,"constraints":v} for k,v in counts.items()],
+            "custom_code_unestimated":custom,"n1_note":"正常方式模型规模；N−1 事故状态由求解后端展开。",
             "scope":"模板计数（不含 B9 事故展开）","switchable_lines":chosen}
 
 def _label(d):
@@ -86,8 +98,8 @@ def make_code(spec):
             custom += [f"    # <<< [{ident}-custom]"]
     return template.replace("__DELTA_BLOCKS__","\n".join(deltas)).replace("__STRUCTURAL_BLOCKS__","\n".join(ops)).replace("__CUSTOM_BLOCKS__","\n".join(custom)).replace("__DEFAULT_BETA__",repr(float(load_config("app.yaml").get("default_beta",1.0))))
 
-SYMBOLS={"PD":r"P^D","QD":r"Q^D","VMAX":r"\overline V","VMIN":r"\underline V","PMAX":r"\overline P","PMIN":r"\underline P","GEN_STATUS":"u","RATE_A":r"\overline S","BR_STATUS":"z"}
-AFFECTED={"PD":["B1"],"QD":["B2"],"VMAX":["B5"],"VMIN":["B5"],"PMAX":["B6"],"PMIN":["B6"],"GEN_STATUS":["B1","B2","B6"],"RATE_A":["B4"],"BR_STATUS":["B3","B4","B7","B9"]}
+SYMBOLS={"PG":r"P^G","QG":r"Q^G","PD":r"P^D","QD":r"Q^D","VMAX":r"\overline V","VMIN":r"\underline V","PMAX":r"\overline P","PMIN":r"\underline P","GEN_STATUS":"u","RATE_A":r"\overline S","BR_STATUS":"z"}
+AFFECTED={"PG":["B1","B6"],"QG":["B2","B6"],"PD":["B1"],"QD":["B2"],"VMAX":["B5"],"VMIN":["B5"],"PMAX":["B6"],"PMIN":["B6"],"GEN_STATUS":["B1","B2","B6"],"RATE_A":["B4"],"BR_STATUS":["B3","B4","B7","B9"]}
 def generate_artifacts(spec,grid):
     spec=as_dict(spec);library=load_config("operators.yaml");latex=[];affected={}
     for d in spec.get("delta_pi",[]):
@@ -118,7 +130,16 @@ def generate_artifacts(spec,grid):
         if base["id"]=="B7" and spec.get("omega",{}).get("problem")=="multi_period_acopf":
             title="固定拓扑 · AC-OPF"
             formula=r"z_{l,t}=z^0_{l,t},\quad \forall l\in\mathcal L,\ t\in\mathcal T\quad\text{无二进制开断变量}"
+        if base['id']=='B0' and any(op['kind']=='objective' and op['op_id']!='switching_penalty' for op in spec.get('structural',[])):
+            title='多目标组合';formula=r'\min\sum_{k\in\mathcal K}\beta_k f_k(x)'
+        if base['id']=='B6' and spec.get('omega',{}).get('generator_mode')=='commitment':
+            formula=r'u_{g,t}\underline P_g\le P^G_{g,t}\le u_{g,t}\overline P_g,\quad u_{g,t}\underline Q_g\le Q^G_{g,t}\le u_{g,t}\overline Q_g'
         latex.append({"id":base["id"],"title":title,"latex":formula,"changed":base["id"] in affected,"source_ids":affected.get(base["id"],[]),
-                      "warning":"基础目标为待确认占位，数据缺少发电成本。" if base["id"]=="B0" else ("抽象事故状态；外部链负责展开，不代表已实现交流 N−1。" if base["id"]=="B9" else None)})
+                      "warning":"求解后端展开事故状态" if base['id']=='B9' else None})
+    if spec.get('omega',{}).get('generator_mode')=='commitment':
+        latex.extend([
+            {'id':'UC1','title':'启停状态转移','latex':r'u_{g,t}-u_{g,t-1}=y_{g,t}-w_{g,t},\quad y_{g,t}+w_{g,t}\le1','changed':True,'source_ids':[]},
+            {'id':'UC2','title':'最小开机与停机时间','latex':r'\sum_{k=\max(1,t-U_g+1)}^t y_{g,k}\le u_{g,t},\quad\sum_{k=\max(1,t-D_g+1)}^t w_{g,k}\le1-u_{g,t}','changed':True,'source_ids':[]}
+        ])
     text="\n\n".join("% "+x["id"]+" "+x["title"]+"\n"+x["latex"] for x in latex)
     return {"latex":latex,"latex_text":text,"code":make_code(spec),"size":estimate_size(spec,grid)}

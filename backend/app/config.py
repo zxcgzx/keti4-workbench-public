@@ -7,7 +7,9 @@ import yaml
 ROOT = Path(__file__).resolve().parents[2]
 # Optional local environment file. Values never leave the backend configuration.
 _ENV_KEYS = {"LLM_MODE","LLM_BASE_URL","LLM_MODEL","LLM_API_KEY","METHOD_ENDPOINT","RISK_ENDPOINT",
-             "SOLVER_MODE","SOLVER_CMD","SNAPSHOT_DIR","WORKBENCH_HOST","WORKBENCH_PORT"}
+             "SOLVER_MODE","SOLVER_CMD","SNAPSHOT_DIR","WORKBENCH_HOST","WORKBENCH_PORT",
+             "PROOPF_BASE_URL","PROOPF_MODEL","PROOPF_API_KEY","TOPIC2_MODEL_ENDPOINT",
+             "HALLUCINATION_ENDPOINT","REWARD_ENDPOINT"}
 def _load_env_file(path, environ=None):
     """Load the allowlisted local settings without changing Windows path escaping."""
     path = Path(path)

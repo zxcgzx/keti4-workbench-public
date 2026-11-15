@@ -2,7 +2,7 @@
   "base": [
     {
       "id": "B0",
-      "name": "基础目标（待确认）",
+      "name": "出力调整目标",
       "latex": "\\min\\sum_{t\\in\\mathcal T}\\sum_{g\\in\\mathcal G}(P^G_{g,t}-P^{G,0}_g)^2"
     },
     {
@@ -121,6 +121,13 @@
       ],
       "latex": "+\\beta\\sum_t\\sum_i(V_{i,t}-1)^2",
       "code_template": "apply_voltage_deviation(model, params)"
-    }
+    },
+    {"op_id":"generator_dispatch","kind":"problem","name":"机组出力调整","parameters":[],"latex":"P^G_{g,t}\\in[\\underline P_g,\\overline P_g]","code_template":"generator_mode=dispatch"},
+    {"op_id":"generator_fixed","kind":"problem","name":"固定机组有功","parameters":[],"latex":"P^G_{g,t}=P^{G,0}_{g,t}","code_template":"generator_mode=fixed"},
+    {"op_id":"unit_commitment","kind":"problem","name":"机组启停","parameters":[],"latex":"u_{g,t}-u_{g,t-1}=y_{g,t}-w_{g,t},\\quad u,y,w\\in\\{0,1\\}","code_template":"generator_mode=commitment"},
+    {"op_id":"generator_ramp","kind":"constraint","name":"机组爬坡约束","parameters":["generators","up_mw","down_mw"],"latex":"-R_g^d\\le P^G_{g,t}-P^G_{g,t-1}\\le R_g^u","code_template":"apply_generator_ramp(model,params)"},
+    {"op_id":"dispatch_deviation","kind":"objective","name":"出力调整最小","category":"经济性","parameters":["beta"],"latex":"\\beta\\sum_{g,t}(P^G_{g,t}-P^{G,0}_{g,t})^2","code_template":"apply_dispatch_deviation(model,params)"},
+    {"op_id":"generation_cost","kind":"objective","name":"发电成本最小","category":"经济性","parameters":["beta","coefficients"],"latex":"\\beta\\Delta t\\sum_{g,t}(c_{2g}(P^G_{g,t})^2+c_{1g}P^G_{g,t}+c_{0g}u_{g,t})","code_template":"apply_generation_cost(model,params)"},
+    {"op_id":"renewable_curtailment","kind":"objective","name":"新能源弃电最少","category":"新能源消纳","parameters":["beta","availability"],"latex":"\\beta\\Delta t\\sum_{g\\in\\mathcal G^{RE},t}(\\overline P^{RE}_{g,t}-P^G_{g,t})","code_template":"apply_renewable_curtailment(model,params)"}
   ]
 }

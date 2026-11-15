@@ -25,6 +25,9 @@ def trial_build(code,spec,grid,timeout_s=60):
     if importlib.util.find_spec("pyomo") is None:
         return {"status":"skipped","reason":"未安装 Pyomo，保留语法与模板计数检查。","code_sha256":sha,"periods":1,"n_minus_1":False}
     trial_spec=copy.deepcopy(spec);trial_spec["omega"]["periods"]=1;trial_spec["omega"]["n_minus_1"]=False
+    for op in trial_spec.get('structural',[]):
+        if op['op_id']=='renewable_curtailment':
+            op['params']['availability']={g:values[:1] for g,values in (op['params'].get('availability') or {}).items()}
     payload={k:grid[k] for k in ("bus","gen","branch","meta","meshed")}
     if grid.get("period_data") is not None:
         frame=grid["period_data"].get(1,grid["period_data"].get("1"))

@@ -13,6 +13,13 @@ export type StepMin = number;
 export type SingleSnapshot = boolean;
 export type System = string;
 export type Problem = "multi_period_ac_ots" | "multi_period_acopf";
+export type GeneratorMode = "dispatch" | "fixed" | "commitment";
+export type MinUp = number;
+export type MinDown = number;
+export type InitialDuration = number | null;
+export type StartupCost = number;
+export type ShutdownCost = number;
+export type ObjectiveMode = "adjustment" | "custom";
 export type Periods1 = number;
 export type StepMin1 = number;
 export type NMinus1 = boolean;
@@ -70,11 +77,21 @@ export interface SnapshotRef {
 export interface BaseModelDef {
   system?: System;
   problem?: Problem;
+  generator_mode?: GeneratorMode;
+  commitment?: CommitmentConfig;
+  objective_mode?: ObjectiveMode;
   periods?: Periods1;
   step_min?: StepMin1;
   n_minus_1?: NMinus1;
   contingency_rule?: ContingencyRule;
   switchable_rule?: SwitchableRule;
+}
+export interface CommitmentConfig {
+  min_up?: MinUp;
+  min_down?: MinDown;
+  initial_duration?: InitialDuration;
+  startup_cost?: StartupCost;
+  shutdown_cost?: ShutdownCost;
 }
 export interface DeltaPi1 {
   id: Id1;

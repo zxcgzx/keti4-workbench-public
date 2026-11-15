@@ -11,6 +11,7 @@ import './styles/workbench.css';
 import './styles/refresh.css';
 import './styles/research.css';
 import './styles/workbench-v3.css';
+import './styles/workbench-v4.css';
 import App from './App.vue';
 import router from './router';
 createApp(App).use(createPinia()).use(router).use(ElementPlus,{locale:zhCn}).mount('#app');

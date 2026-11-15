@@ -161,7 +161,7 @@ def historical_calculation(record_id: str):
 
 @router.get("/delivery",include_in_schema=False)
 def download_delivery():
-    path=ROOT/"deliveries"/"keti4-workbench-v3.2-history.zip"
+    path=ROOT/"deliveries"/"运行方式智能调整平台B-v4.0.zip"
     if not path.exists():
         raise HTTPException(404,"交付包尚未生成")
     return FileResponse(path,media_type="application/zip",filename=path.name)
@@ -231,8 +231,11 @@ def registry():
 
 @router.post("/tasks")
 def new_task(body:NewTask):
-    if body.engine not in ("demo","openai","external"):
-        raise HTTPException(422,"请选择演示规则引擎、LLM API或已配置的外部方法")
+    if body.engine not in ("demo","openai","external","qwen","proopf","topic2"):
+        raise HTTPException(422,"请选择已登记的建模引擎")
+    endpoint_keys={'qwen':'LLM_BASE_URL','proopf':'PROOPF_BASE_URL','topic2':'TOPIC2_MODEL_ENDPOINT'}
+    if body.engine in endpoint_keys and not os.getenv(endpoint_keys[body.engine]):
+        raise HTTPException(409,'该建模服务尚未配置，请在数据与接口页查看接入设置')
     if body.engine=="external" and not os.getenv("METHOD_ENDPOINT"):
         raise HTTPException(409,"铮昊方法接口尚未配置")
     if body.snapshot_id and not any(x["id"]==body.snapshot_id for x in get_snapshots()):
@@ -357,6 +360,9 @@ def confirm(task_id:str,body:dict=Body(default={})):
         if name=="section_limit" and (not params.get("branches") or params.get("limit_mw") is None):
             raise HTTPException(409,f"{item['id']} 的断面支路或限额尚未填写")
     # Generate only after all human confirmations; legality remains visible in M4.
+    from app.modeling.dynamic import resource_issues
+    missing=resource_issues(spec,_grid(task))
+    if missing:raise HTTPException(409,'；'.join(x['message'] for x in missing))
     versions=store.list_versions(task_id)
     spec["version"]=max((v["version"] for v in versions),default=0)+1
     spec["parent_version"]=versions[-1]["version"] if versions else None
@@ -416,8 +422,8 @@ def solve(task_id:str,body:dict=Body(default={})):
     report=task.get("check")
     if not report or report.get("spec_sha256")!=_digest(saved["spec"]):
         raise HTTPException(409,"请先对当前版本执行五层校验")
-    if report.get("errors",0):
-        raise HTTPException(409,"当前校验存在错误，不能进入求解黑盒")
+    if report.get("errors",0) or not report.get('can_solve',False):
+        raise HTTPException(409,"当前校验未通过，不能进入求解黑盒")
     if report.get("warnings",0) and not body.get("acknowledge_warnings"):
         raise HTTPException(409,"请阅读并确认校验警告")
     try:
@@ -455,8 +461,8 @@ def results_import(task_id:str,body:dict=Body(...)):
     report=task.get("check")
     if not report or report.get("spec_sha256")!=_digest(saved["spec"]):
         raise HTTPException(409,"导入结果前请先对当前规格执行五层校验")
-    if report.get("errors",0):
-        raise HTTPException(409,"当前校验存在错误，不能通过导入跳过M4")
+    if report.get("errors",0) or not report.get('can_solve',False):
+        raise HTTPException(409,"当前校验未通过，不能导入结果")
     if report.get("warnings",0) and not body.get("acknowledge_warnings"):
         raise HTTPException(409,"导入结果前请阅读并确认校验警告")
     try:
@@ -497,6 +503,8 @@ def adjust(task_id:str,body:dict=Body(...)):
     metrics=task.get("metrics")
     if not metrics:
         raise HTTPException(409,"请先计算风险指标")
+    if metrics.get('spec_sha256')!=_digest(saved['spec']):
+        raise HTTPException(409,'风险评估与当前版本不一致，请重新评估')
     requested=body.get("suggestion_ids",[])
     choices=[s for s in metrics.get("suggestions",[]) if s["id"] in requested]
     if not choices:

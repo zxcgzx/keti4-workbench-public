@@ -17,6 +17,28 @@
           "title": "Problem",
           "type": "string"
         },
+        "generator_mode": {
+          "default": "dispatch",
+          "enum": [
+            "dispatch",
+            "fixed",
+            "commitment"
+          ],
+          "title": "Generator Mode",
+          "type": "string"
+        },
+        "commitment": {
+          "$ref": "#/$defs/CommitmentConfig"
+        },
+        "objective_mode": {
+          "default": "adjustment",
+          "enum": [
+            "adjustment",
+            "custom"
+          ],
+          "title": "Objective Mode",
+          "type": "string"
+        },
         "periods": {
           "default": 16,
           "title": "Periods",
@@ -54,6 +76,53 @@
         }
       },
       "title": "BaseModelDef",
+      "type": "object"
+    },
+    "CommitmentConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "min_up": {
+          "default": 1,
+          "maximum": 16,
+          "minimum": 1,
+          "title": "Min Up",
+          "type": "integer"
+        },
+        "min_down": {
+          "default": 1,
+          "maximum": 16,
+          "minimum": 1,
+          "title": "Min Down",
+          "type": "integer"
+        },
+        "initial_duration": {
+          "anyOf": [
+            {
+              "maximum": 10000,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Initial Duration"
+        },
+        "startup_cost": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Startup Cost",
+          "type": "number"
+        },
+        "shutdown_cost": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Shutdown Cost",
+          "type": "number"
+        }
+      },
+      "title": "CommitmentConfig",
       "type": "object"
     },
     "DeltaPi": {

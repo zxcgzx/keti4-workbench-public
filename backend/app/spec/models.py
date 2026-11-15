@@ -7,7 +7,7 @@ from pydantic import BaseModel, ConfigDict, Field
 ROOT = Path(__file__).resolve().parents[3]
 WHITELIST = {
     "bus": {"PD": ["scale", "set", "add"], "QD": ["scale", "set", "add"], "VMAX": ["set"], "VMIN": ["set"]},
-    "gen": {"PMAX": ["scale", "set"], "PMIN": ["scale", "set"], "GEN_STATUS": ["set"]},
+    "gen": {"PG": ["scale", "set", "add"], "QG": ["scale", "set", "add"], "PMAX": ["scale", "set"], "PMIN": ["scale", "set"], "GEN_STATUS": ["set"]},
     "branch": {"RATE_A": ["scale", "set"], "BR_STATUS": ["set"]},
 }
 INFERABLE = {"bus": ["PD", "QD"], "gen": ["PMAX", "PMIN"], "branch": ["RATE_A"]}
@@ -38,9 +38,19 @@ class StructuralOp(Contract):
     evidence: str
     custom_code: str | None = None
 
+class CommitmentConfig(Contract):
+    min_up: int = Field(default=1, ge=1, le=16)
+    min_down: int = Field(default=1, ge=1, le=16)
+    initial_duration: int | None = Field(default=None, ge=0, le=10000)
+    startup_cost: float = Field(default=0, ge=0)
+    shutdown_cost: float = Field(default=0, ge=0)
+
 class BaseModelDef(Contract):
     system: str = "dali_905"
     problem: Literal["multi_period_ac_ots", "multi_period_acopf"] = "multi_period_ac_ots"
+    generator_mode: Literal["dispatch", "fixed", "commitment"] = "dispatch"
+    commitment: CommitmentConfig = Field(default_factory=CommitmentConfig)
+    objective_mode: Literal["adjustment", "custom"] = "adjustment"
     periods: int = 16
     step_min: int = 15
     n_minus_1: bool = True

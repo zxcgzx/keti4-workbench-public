@@ -7,6 +7,7 @@ from app.spec.models import as_dict, WHITELIST, INFERABLE, load_config
 from app.data.grid import island_details, branch_kv
 from app.modeling.generator import generate_artifacts, modified_value
 from app.modeling.trial import trial_build
+from app.modeling.dynamic import resource_issues
 
 def _finite(value):
     return not isinstance(value,bool) and isinstance(value,(float,int)) and math.isfinite(value)
@@ -115,6 +116,7 @@ def run_checks(spec,grid,parse_state=None,try_build=False,code=None):
     for q in grid.get("summary",{}).get("quality",[]):
         if "time" in str(q.get("code","")).lower() or "时刻" in q.get("message",""):
             add(3,"W305","warning",q["message"])
+    findings.extend(resource_issues(spec, grid))
     build={"status":"not_run","reason":"未请求试构建；已检查生成代码语法。"}
     artifacts=None
     try:
@@ -170,7 +172,7 @@ def run_checks(spec,grid,parse_state=None,try_build=False,code=None):
     for item in expected["structural"]:
         if item["op_id"] not in current_ops:add(5,"W502","warning",f"原文要求 {item['op_id']} 未进入规格。",None,"补齐该结构算子或修改原指令。")
     add(5,"I503","info","已逐项回译规格，与原文依据对照。",None,back_translation=back)
-    endpoint=os.environ.get("METHOD_ENDPOINT","").rstrip("/")
+    endpoint=(os.environ.get('HALLUCINATION_ENDPOINT') or os.environ.get('METHOD_ENDPOINT','')).rstrip('/')
     if endpoint:
         try:
             with httpx.Client(timeout=8,trust_env=False) as client:
@@ -183,6 +185,12 @@ def run_checks(spec,grid,parse_state=None,try_build=False,code=None):
         except (httpx.HTTPError,ValueError,TypeError):
             add(5,"W504","warning","外部去幻觉方法不可用，保留本地校验结果。",None,"检查 METHOD_ENDPOINT。")
     else:add(5,"I504","info","外部方法：未接入。当前为本地规则覆盖与回译检查。")
+    from app.checks.diagnostics import diagnose
+    diagnosis=diagnose(spec, grid, findings)
+    existing_codes={x['code'] for x in findings}
+    for conflict in diagnosis['conflicts']:
+        if conflict['code'] not in existing_codes:
+            add(2, conflict['code'], conflict['severity'], conflict['message'], conflict.get('item_id'), conflict.get('suggestion'))
     layers=[]
     for index,name in enumerate(["规格合法","结构一致","数据检查","可执行","语义回译"],1):
         rows=[x for x in findings if x["layer"]==index]
@@ -190,4 +198,4 @@ def run_checks(spec,grid,parse_state=None,try_build=False,code=None):
     errors=sum(x["severity"]=="error" for x in findings);warnings=sum(x["severity"]=="warning" for x in findings)
     unresolved=any(not q.get("answered") for q in (parse_state or {}).get("questions",[]))
     can_solve=not errors and not unresolved and not any(x["code"]=="W109" for x in findings) and bool(changes or structural)
-    return {"findings":findings,"layers":layers,"errors":errors,"warnings":warnings,"can_solve":can_solve,"back_translation":back,"build":build,"external_method":"configured" if endpoint else "未接入","requires_warning_ack":warnings>0}
+    return {"findings":findings,"layers":layers,"errors":errors,"warnings":warnings,"can_solve":can_solve,"back_translation":back,"build":build,"external_method":"configured" if endpoint else "未接入","requires_warning_ack":warnings>0,"diagnosis":diagnosis}
