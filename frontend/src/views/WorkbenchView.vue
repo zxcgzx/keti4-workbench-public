@@ -41,7 +41,7 @@ const modelName=computed(()=>s.spec?.omega.problem==='multi_period_acopf'?'固�
       <div class="chat-composer">
         <el-select v-model="selectedCase" placeholder="选择演示用例 D1–D10" @change="chooseCase" class="full-width"><el-option v-for="c in cases" :key="c.id" :label="c.id+' · '+c.instruction" :value="c.id"/></el-select>
         <div class="template-tags"><button v-for="(label,i) in ['检修','高温限额','负荷增长','开关次数','断面限额']" :key="label" @click="chooseCase(['D2','D3','D1','D5','D6'][i])">{{label}}</button></div>
-        <div class="template-tags"><button @click="s.instruction='第1–8时段，机组G237有功出力设为80MW，采用固定拓扑AC-OPF。'">机组出力</button><button @click="s.instruction='采用AC-OTS，加入机组启停，最小开机4时段，最小停机4时段，初始已持续4时段，以网损最小为目标。'">机组启停</button><button @click="s.instruction='采用固定拓扑AC-OPF，以发电成本最小为目标。'">经济性目标</button></div>
+        <div class="template-tags"><button @click="s.instruction='第1–8时段，机组G12有功出力设为80MW，采用固定拓扑AC-OPF。'">机组出力</button><button @click="s.instruction='采用AC-OTS，加入机组启停，最小开机4时段，最小停机4时段，初始已持续4时段，以网损最小为目标。'">机组启停</button><button @click="s.instruction='采用固定拓扑AC-OPF，以发电成本最小为目标。'">经济性目标</button></div>
         <el-input v-model="s.instruction" type="textarea" :rows="s.parse?3:5" resize="vertical" placeholder="例如：第 1–8 时段，母线 43 的有功负荷提高 20%。" data-testid="instruction-input"/>
         <div class="composer-actions"><el-tooltip content="语音交互待开发"><span class="small-note">语音 <StatusBadge name="语音输入"/></span></el-tooltip><el-button type="primary" :disabled="!s.instruction.trim()" :loading="s.busy" @click="s.start().catch(()=>{})" data-testid="parse-instruction">解析指令 <UiIcon name="arrow" :size="15"/></el-button></div>
       </div>
